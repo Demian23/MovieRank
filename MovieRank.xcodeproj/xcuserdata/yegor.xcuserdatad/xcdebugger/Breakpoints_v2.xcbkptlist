@@ -1,0 +1,433 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Bucket
+   uuid = "1F77DC04-53D2-4383-9C6C-C31B072288CE"
+   type = "1"
+   version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "B5F89BEE-9C53-4F31-8932-D3EBD738E2D5"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MovieRank/Views/ProfileView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "21"
+            endingLineNumber = "21"
+            landmarkName = "body"
+            landmarkType = "24">
+            <Locations>
+               <Location
+                  uuid = "B5F89BEE-9C53-4F31-8932-D3EBD738E2D5 - cdf63e8c7a999184"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "MovieRank.ProfileView.body.getter : some"
+                  moduleName = "MovieRank"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/yegor/work/swift/MovieRank/MovieRank/Views/ProfileView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "17"
+                  endingLineNumber = "17"
+                  offsetFromSymbolStart = "384">
+               </Location>
+               <Location
+                  uuid = "B5F89BEE-9C53-4F31-8932-D3EBD738E2D5 - cdf63e8c7a9991a5"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "MovieRank.ProfileView.body.getter : some"
+                  moduleName = "MovieRank"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/yegor/work/swift/MovieRank/MovieRank/Views/ProfileView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "18"
+                  endingLineNumber = "18"
+                  offsetFromSymbolStart = "412">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "8E0324FA-1866-4D12-A80D-A0446EC5F63A"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MovieRank/Views/ProfileView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "13"
+            endingLineNumber = "13"
+            landmarkName = "ProfileView"
+            landmarkType = "14">
+            <Locations>
+               <Location
+                  uuid = "8E0324FA-1866-4D12-A80D-A0446EC5F63A - 429a4b2f02528c69"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "MovieRank.ProfileView.errorHandling.getter : MovieRank.ErrorHandling"
+                  moduleName = "MovieRank"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/yegor/work/swift/MovieRank/MovieRank/Views/ProfileView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "0"
+                  endingLineNumber = "0"
+                  offsetFromSymbolStart = "16">
+               </Location>
+               <Location
+                  uuid = "8E0324FA-1866-4D12-A80D-A0446EC5F63A - 592d40868a29342d"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "MovieRank.ProfileView.$errorHandling.getter : SwiftUI.EnvironmentObject&lt;MovieRank.ErrorHandling&gt;.Wrapper"
+                  moduleName = "MovieRank"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/yegor/work/swift/MovieRank/MovieRank/Views/ProfileView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "0"
+                  endingLineNumber = "0"
+                  offsetFromSymbolStart = "16">
+               </Location>
+               <Location
+                  uuid = "8E0324FA-1866-4D12-A80D-A0446EC5F63A - 5a26e889a89ad56b"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "default argument 0 of MovieRank.ProfileView.init(errorHandling: SwiftUI.EnvironmentObject&lt;MovieRank.ErrorHandling&gt;, authModel: SwiftUI.EnvironmentObject&lt;MovieRank.AuthViewModel&gt;) -&gt; MovieRank.ProfileView"
+                  moduleName = "MovieRank"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/yegor/work/swift/MovieRank/MovieRank/Views/ProfileView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "0"
+                  endingLineNumber = "0"
+                  offsetFromSymbolStart = "16">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "4E93117D-D9C1-4936-9F46-51C9BA516360"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MovieRank/Authentication/ViewModel/AuthViewModel.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "88"
+            endingLineNumber = "88"
+            landmarkName = "fetchCurrentUser()"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "4E93117D-D9C1-4936-9F46-51C9BA516360 - 9915f88727a01a67"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(1) suspend resume partial function for MovieRank.AuthViewModel.fetchCurrentUser() async throws -&gt; ()"
+                  moduleName = "MovieRank"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/yegor/work/swift/MovieRank/MovieRank/Authentication/ViewModel/AuthViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "48"
+                  endingLineNumber = "48"
+                  offsetFromSymbolStart = "52">
+               </Location>
+               <Location
+                  uuid = "4E93117D-D9C1-4936-9F46-51C9BA516360 - abec791644ae59a5"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(3) suspend resume partial function for MovieRank.AuthViewModel.fetchCurrentUser() async throws -&gt; ()"
+                  moduleName = "MovieRank"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/yegor/work/swift/MovieRank/MovieRank/Authentication/ViewModel/AuthViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "48"
+                  endingLineNumber = "48"
+                  offsetFromSymbolStart = "44">
+               </Location>
+               <Location
+                  uuid = "4E93117D-D9C1-4936-9F46-51C9BA516360 - 433839a9342f4782"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(4) suspend resume partial function for MovieRank.AuthViewModel.fetchCurrentUser() async throws -&gt; ()"
+                  moduleName = "MovieRank"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/yegor/work/swift/MovieRank/MovieRank/Authentication/ViewModel/AuthViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "48"
+                  endingLineNumber = "48"
+                  offsetFromSymbolStart = "40">
+               </Location>
+               <Location
+                  uuid = "4E93117D-D9C1-4936-9F46-51C9BA516360 - abec791644ae59a5"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(3) suspend resume partial function for MovieRank.AuthViewModel.fetchCurrentUser() async throws -&gt; ()"
+                  moduleName = "MovieRank"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/yegor/work/swift/MovieRank/MovieRank/Authentication/ViewModel/AuthViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "48"
+                  endingLineNumber = "48"
+                  offsetFromSymbolStart = "60">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "1DF4EDBA-D3B5-4EBE-A4BD-870DA0E78220"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MovieRank/Authentication/AuthanticationManager.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "12"
+            endingLineNumber = "12"
+            landmarkName = "AuthanticationManager"
+            landmarkType = "3">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "4749085A-3D7A-470D-805C-D8E7B1BF06D5"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MovieRank/Root/ContentView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "14"
+            endingLineNumber = "14"
+            landmarkName = "body"
+            landmarkType = "24">
+            <Locations>
+               <Location
+                  uuid = "4749085A-3D7A-470D-805C-D8E7B1BF06D5 - d213f9be97df9c1"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 () -&gt; SwiftUI._ConditionalContent&lt;SwiftUI.TabView&lt;Swift.Int, SwiftUI.TupleView&lt;(&lt;&lt;opaque return type of SwiftUI.View.tabItem&lt;&#x3c4;_0_0 where &#x3c4;_1_0: SwiftUI.View&gt;(() -&gt; &#x3c4;_1_0) -&gt; some&gt;&gt;.0, &lt;&lt;opaque return type of SwiftUI.View.tabItem&lt;&#x3c4;_0_0 where &#x3c4;_1_0: SwiftUI.View&gt;(() -&gt; &#x3c4;_1_0) -&gt; some&gt;&gt;.0, &lt;&lt;opaque return type of SwiftUI.View.tabItem&lt;&#x3c4;_0_0 where &#x3c4;_1_0: SwiftUI.View&gt;(() -&gt; &#x3c4;_1_0) -&gt; some&gt;&gt;.0)&gt;&gt;, MovieRank.LoginView&gt; in MovieRank.ContentView.body.getter : some"
+                  moduleName = "MovieRank"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/yegor/work/swift/MovieRank/MovieRank/Root/ContentView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "13"
+                  endingLineNumber = "13"
+                  offsetFromSymbolStart = "268">
+               </Location>
+               <Location
+                  uuid = "4749085A-3D7A-470D-805C-D8E7B1BF06D5 - d213f9be97df9e6"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 () -&gt; SwiftUI._ConditionalContent&lt;SwiftUI.TabView&lt;Swift.Int, SwiftUI.TupleView&lt;(&lt;&lt;opaque return type of SwiftUI.View.tabItem&lt;&#x3c4;_0_0 where &#x3c4;_1_0: SwiftUI.View&gt;(() -&gt; &#x3c4;_1_0) -&gt; some&gt;&gt;.0, &lt;&lt;opaque return type of SwiftUI.View.tabItem&lt;&#x3c4;_0_0 where &#x3c4;_1_0: SwiftUI.View&gt;(() -&gt; &#x3c4;_1_0) -&gt; some&gt;&gt;.0, &lt;&lt;opaque return type of SwiftUI.View.tabItem&lt;&#x3c4;_0_0 where &#x3c4;_1_0: SwiftUI.View&gt;(() -&gt; &#x3c4;_1_0) -&gt; some&gt;&gt;.0)&gt;&gt;, MovieRank.LoginView&gt; in MovieRank.ContentView.body.getter : some"
+                  moduleName = "MovieRank"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/yegor/work/swift/MovieRank/MovieRank/Root/ContentView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "14"
+                  endingLineNumber = "14"
+                  offsetFromSymbolStart = "304">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "E8ED05F3-2BFD-4F88-8F9B-B6244C2F5119"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MovieRank/Views/ProfileView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "71"
+            endingLineNumber = "71"
+            landmarkName = "body"
+            landmarkType = "24">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "9F2B0DE7-1380-4937-9A36-398552FAB7E5"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MovieRank/DBConnectors/MovieConnector.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "88"
+            endingLineNumber = "88"
+            landmarkName = "fetchUserMarkForMovie(movieId:currentUserId:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "9F2B0DE7-1380-4937-9A36-398552FAB7E5 - d517c3f819197ebc"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(1) suspend resume partial function for MovieRank.MovieConnector.fetchUserMarkForMovie(movieId: Swift.String, currentUserId: Swift.String) async throws -&gt; Swift.String"
+                  moduleName = "MovieRank"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/yegor/work/swift/MovieRank/MovieRank/DBConnectors/MovieConnector.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "36"
+                  endingLineNumber = "36"
+                  offsetFromSymbolStart = "676">
+               </Location>
+               <Location
+                  uuid = "9F2B0DE7-1380-4937-9A36-398552FAB7E5 - 923bdb56752ddd1f"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(2) await resume partial function for MovieRank.MovieConnector.fetchUserMarkForMovie(movieId: Swift.String, currentUserId: Swift.String) async throws -&gt; Swift.String"
+                  moduleName = "MovieRank"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/yegor/work/swift/MovieRank/MovieRank/DBConnectors/MovieConnector.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "36"
+                  endingLineNumber = "36"
+                  offsetFromSymbolStart = "68">
+               </Location>
+               <Location
+                  uuid = "9F2B0DE7-1380-4937-9A36-398552FAB7E5 - 828cda9ab943bba"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(3) suspend resume partial function for MovieRank.MovieConnector.fetchUserMarkForMovie(movieId: Swift.String, currentUserId: Swift.String) async throws -&gt; Swift.String"
+                  moduleName = "MovieRank"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/yegor/work/swift/MovieRank/MovieRank/DBConnectors/MovieConnector.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "36"
+                  endingLineNumber = "36"
+                  offsetFromSymbolStart = "100">
+               </Location>
+               <Location
+                  uuid = "9F2B0DE7-1380-4937-9A36-398552FAB7E5 - 61cc54417d519ada"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(4) suspend resume partial function for MovieRank.MovieConnector.fetchUserMarkForMovie(movieId: Swift.String, currentUserId: Swift.String) async throws -&gt; Swift.String"
+                  moduleName = "MovieRank"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/yegor/work/swift/MovieRank/MovieRank/DBConnectors/MovieConnector.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "35"
+                  endingLineNumber = "35"
+                  offsetFromSymbolStart = "60">
+               </Location>
+               <Location
+                  uuid = "9F2B0DE7-1380-4937-9A36-398552FAB7E5 - 61cc54417d519939"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(4) suspend resume partial function for MovieRank.MovieConnector.fetchUserMarkForMovie(movieId: Swift.String, currentUserId: Swift.String) async throws -&gt; Swift.String"
+                  moduleName = "MovieRank"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/yegor/work/swift/MovieRank/MovieRank/DBConnectors/MovieConnector.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "36"
+                  endingLineNumber = "36"
+                  offsetFromSymbolStart = "80">
+               </Location>
+               <Location
+                  uuid = "9F2B0DE7-1380-4937-9A36-398552FAB7E5 - 61cc54417d519939"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(4) suspend resume partial function for MovieRank.MovieConnector.fetchUserMarkForMovie(movieId: Swift.String, currentUserId: Swift.String) async throws -&gt; Swift.String"
+                  moduleName = "MovieRank"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/yegor/work/swift/MovieRank/MovieRank/DBConnectors/MovieConnector.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "36"
+                  endingLineNumber = "36"
+                  offsetFromSymbolStart = "100">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "61AB5AF7-C19D-4882-B36F-33EEA7FDD876"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MovieRank/DBConnectors/MovieConnector.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "45"
+            endingLineNumber = "45"
+            landmarkName = "updateOrCreateNewMarkForMovie(movieId:currentUserId:newMark:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "0925318F-D4E4-43D6-9AF6-9E4BAFDE7BDB"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MovieRank/DBConnectors/MovieConnector.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "50"
+            endingLineNumber = "50"
+            landmarkName = "updateOrCreateNewMarkForMovie(movieId:currentUserId:newMark:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "B4D45DCF-757C-4E95-B6C5-DCD58B529428"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MovieRank/DBConnectors/MovieConnector.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "51"
+            endingLineNumber = "51"
+            landmarkName = "updateOrCreateNewMarkForMovie(movieId:currentUserId:newMark:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
+</Bucket>
