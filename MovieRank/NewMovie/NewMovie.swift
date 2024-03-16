@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct NewMovieView : View {
+struct NewMovie: View {
     @EnvironmentObject var errorHandling: ErrorHandling
     @EnvironmentObject var authModel: AuthViewModel
     @State private var name = ""
@@ -9,14 +9,14 @@ struct NewMovieView : View {
     @State private var director = ""
     @State private var description = ""
     @State private var mark = ""
+    
     private var isMarkValid: Bool {
+        // TODO: Write normal validation
             let digitsCharacters = CharacterSet(charactersIn: "0123456789")
             return CharacterSet(charactersIn: mark).isSubset(of: digitsCharacters)
         }
-    @State private var releaseDate: Date = Date()
-    @State private var buttonColor = Color(.systemBlue)
-    @State private var isAlertNeeded = false
     
+    @State private var releaseDate: Date = Date()
     
     let addNewMovieLabel: () -> SettingsRowView = {
         SettingsRowView(imageName: "folder.badge.plus", title: "Add new Movie", tintColor: .white)
@@ -42,7 +42,7 @@ struct NewMovieView : View {
                 Movie(id: NSUUID().uuidString, name: name, releaseDate: releaseDate, marksAmount: (mark.isEmpty ? 0 : 1), marksWholeScore: UInt64(mark) ?? 0, country: country.components(separatedBy: ", "), genre: genres.map{$0.rawValue}, director: director.components(separatedBy: ", "), description: description)
             }
             
-            AsyncButtonWithResultNotificationAndErrorHandling(closure: {try await MovieConnector.shared.addNewMovie(newMovie: newMovieClosure(), currentUserId: authModel.uid!); try await UserConnector.shared.setNewUserScore(userId: authModel.uid!, userScore: authModel.currentUser!.userScore + 1)}, errorHandler: errorHandler, buttonLabel: addNewMovieLabel, notificationTitle: "Info", notificationMessage: "New movie \"\(name)\" successfully added")
+            AsyncButtonWithResultNotificationAndErrorHandling(closure: {try await NewMovieViewModel.shared.addNewMovie(movie: newMovieClosure(), by: authModel.uid!)}, errorHandler: errorHandler, buttonLabel: addNewMovieLabel, notificationTitle: "Info", notificationMessage: "New movie \"\(name)\" successfully added")
                 .frame(width: UIScreen.main.bounds.width - 32, height: 42)
                 .disabled(!isFormValid)
                 .opacity((isFormValid ? 1.0 : 0.5))
@@ -56,7 +56,7 @@ struct NewMovieView : View {
     }
 }
 
-extension NewMovieView : InputFormProtocol {
+extension NewMovie : InputFormProtocol {
     var isFormValid: Bool {
         return 
             !name.isEmpty &&
@@ -71,6 +71,6 @@ extension NewMovieView : InputFormProtocol {
 
 struct NewMovieView_Preview: PreviewProvider {
     static var previews: some View {
-        NewMovieView()
+        NewMovie()
     }
 }

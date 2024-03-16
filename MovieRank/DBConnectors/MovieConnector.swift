@@ -1,44 +1,49 @@
 import Foundation
-import SwiftUI
 import Firebase
-import FirebaseFirestoreSwift
-
-let moviesCollection = "movies"
-let movieMarkComponents = ["marksWholeScore", "marksAmount"]
-let moviesMarksFromUserCollection = ["marks", "user"]
-let userMarkKey = "userMark"
-
+import FirebaseFirestore
 @MainActor
 class MovieConnector{
-    private var db = Firestore.firestore()
+    static private let movies = "movies"
+    static private let movieMarkComponents = ["marksWholeScore", "marksAmount"]
+    static private let marks = ["marks", "user"]
+    static private let userMarkKey = "userMark"
+    static private var db = Firestore.firestore()
     
     static let shared = MovieConnector()
     
     private init(){}
     
-    func addNewMovie(newMovie movie: Movie, currentUserId uid: String) async throws {
+    static func movieDocumentRef(for id: String) -> DocumentReference {
+        return db.collection(movies).document(id)
+    }
+    static func markDocumentRef(for movieId: String, from userId: String) -> DocumentReference {
+        return db.collection(marks[0]).document(movieId).collection(marks[1]).document(userId)
+    }
+    
+    static func addNewMovie(newMovie movie: Movie, currentUserId uid: String) async throws {
         let batch = db.batch()
         
         let encodedMovie = try Firestore.Encoder().encode(movie)
         
-        let newMovieRef = db.collection(moviesCollection).document(movie.id);
+        let newMovieRef = movieDocumentRef(for: movie.id);
         batch.setData(encodedMovie, forDocument: newMovieRef)
         
-        
         if movie.marksAmount > 0{
-            let newMarkRef = db.collection(moviesMarksFromUserCollection[0]).document(movie.id)
-                .collection(moviesMarksFromUserCollection[1]).document(uid)
-            batch.setData([userMarkKey: String(movie.marksWholeScore)], forDocument: newMarkRef)
+            batch.setData([userMarkKey: String(movie.marksWholeScore)], forDocument: markDocumentRef(for: movie.id, from: uid))
         }
         
         try await batch.commit()
     }
     
-    func updateOrCreateNewMarkForMovie(movieId id: String, currentUserId uid: String, newMark mark: String) async throws
+    static func getMovie(by id: String) async throws -> Movie? {
+       return nil
+    }
+    
+    static func updateOrCreateNewMarkForMovie(movieId id: String, currentUserId uid: String, newMark mark: String) async throws
     {
-        let movieRef = db.collection(moviesCollection).document(id)
-        let userRef = db.collection(usersCollection).document(uid)
-        let markRef = db.collection(moviesMarksFromUserCollection[0]).document(id).collection(moviesMarksFromUserCollection[1]).document(uid)
+        let movieRef = movieDocumentRef(for: id)
+        let userRef = UserConnector.userDocumentRef(for: uid)
+        let markRef = markDocumentRef(for: id, from: uid)
         let _ = try await db.runTransaction({(transaction, errorPointer) -> Any? in
             let markDocumentSnapshot: DocumentSnapshot
             do{
@@ -49,7 +54,7 @@ class MovieConnector{
             }
             
             if !markDocumentSnapshot.exists {
-                transaction.updateData([userScoreKey: FieldValue.increment(Int64(1))], forDocument: userRef)
+                transaction.updateData([UserConnector.userScoreKey: FieldValue.increment(Int64(1))], forDocument: userRef)
                 transaction.setData([userMarkKey: mark], forDocument: markRef)
                 transaction.updateData([movieMarkComponents[0]: FieldValue.increment(Int64(mark)!), movieMarkComponents[1]: FieldValue.increment(Int64(1))], forDocument: movieRef)
                 return nil
@@ -74,11 +79,9 @@ class MovieConnector{
         })
     }
     
-    func fetchUserMarkForMovie(movieId id: String, currentUserId uid: String) async throws -> String 
+    static func fetchUserMarkForMovie(movieId id: String, currentUserId uid: String) async throws -> String
     {
-        let markRef = db.collection(moviesMarksFromUserCollection[0]).document(id)
-            .collection(moviesMarksFromUserCollection[1]).document(uid)
-        let markDocument = try await markRef.getDocument()
+        let markDocument = try await markDocumentRef(for: id, from: uid).getDocument()
         if markDocument.exists {
             return (markDocument.get(userMarkKey) as? String)!
         } else {
@@ -86,13 +89,13 @@ class MovieConnector{
         }
     }
     
-    func getAllMovies() async throws -> [Movie]{
-        var movies: [Movie] = []
-        let querySnapshot = try await db.collection(moviesCollection).order(by: "marksWholeScore").getDocuments() // TODO: get it from type
+    static func getAllMovies() async throws -> [Movie]{
+        var result : [Movie] = []
+        let querySnapshot = try await db.collection(movies).order(by: "marksWholeScore").getDocuments() // TODO: get it from type
         for document in querySnapshot.documents {
-            movies.append(try document.data(as: Movie.self))
+            result.append(try document.data(as: Movie.self))
         }
-        return movies
+        return result
     }
     
     // TODO: implement pagination here

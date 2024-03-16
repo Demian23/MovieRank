@@ -6,10 +6,10 @@ struct ContentView: View {
         Group{
             if authModel.currentUserSession != nil && authModel.currentUser != nil {
                 TabView{
-                    MovieList()
+                    MovieList(userId: authModel.uid!)
                         .tabItem{Label("Movies", systemImage: "list.and.film")}
                     if authModel.currentUser!.role == Role.Admin.rawValue {
-                        NewMovieView()
+                        NewMovie()
                             .tabItem{Label("New Movie", systemImage: "plus")}
                     }
                     ProfileView()

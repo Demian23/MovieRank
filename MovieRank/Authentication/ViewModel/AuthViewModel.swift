@@ -59,7 +59,7 @@ final class AuthViewModel: ObservableObject{
     func createUser(withEmail email: String, password: String, firstName: String, lastName: String, country: String) async throws{
         try await createUserWithEmail(withEmail: email, password: password)
         let user = User(id: uid!, firstName: firstName, lastName: lastName, email: email, role: Role.CommonUser.rawValue, country: country, userScore: 0)
-        try await UserConnector.shared.createNewUser(newUser: user)
+        try await UserConnector.createNewUser(newUser: user)
         try await fetchCurrentUser() // maybe throw it out
     }
     
@@ -73,12 +73,12 @@ final class AuthViewModel: ObservableObject{
        // TODO: make it as transaction
         guard let uid = uid else {return}
         try await deleteCurrentUserAccount()
-        try await UserConnector.shared.deleteUserData(userId: uid)
+        try await UserConnector.deleteUserData(userId: uid)
         currentUser = nil
     }
     
     func fetchCurrentUser() async throws {
         guard let userId = uid else {return}
-        currentUser = try await UserConnector.shared.fetchUser(userId: userId)
+        currentUser = try await UserConnector.fetchUser(userId: userId)
     }
 }

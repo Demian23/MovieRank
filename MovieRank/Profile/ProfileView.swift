@@ -6,8 +6,6 @@ struct ProfileView: View {
     @EnvironmentObject var errorHandling: ErrorHandling
     @EnvironmentObject var authModel: AuthViewModel
     @State private var isReauthanticate = false
-    @State private var isAlertNeeded = false
-    @State private var alertText = ""
     
     var body: some View {
         

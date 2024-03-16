@@ -1,14 +1,10 @@
 import Foundation
-import Firebase
-import FirebaseFirestoreSwift
-
 
 // TODO: add pagination
 @MainActor
 class MovieListViewModel : ObservableObject {
     @Published var movies: [Movie] = []
     @Published var searchText: String  = ""
-    private let db = Firestore.firestore()
     
     init(){
         Task{
@@ -27,8 +23,7 @@ class MovieListViewModel : ObservableObject {
     }
     
     func getAllMovies() async throws {
-        Task{
-            movies = try await MovieConnector.shared.getAllMovies()
-        }
+        movies = try await MovieConnector.getAllMovies()
     }
+    
 }

@@ -1,14 +1,15 @@
 import SwiftUI
 
 struct MovieList: View {
-    @EnvironmentObject var moviesModel : MovieListViewModel
+    @EnvironmentObject var moviesModel: MovieListViewModel
+    let userId: String
     
     var body: some View {
         NavigationStack{
             List{
                 ForEach(moviesModel.filteredMovies){
                     movie in NavigationLink{
-                        MovieDetail(movie: movie)
+                        //MovieDetail(movie: movie, userId: userId)
                     } label: {
                         MovieRow(movie: movie)
                     }
@@ -22,6 +23,6 @@ struct MovieList: View {
 
 struct MovieList_Previews: PreviewProvider {
     static var previews: some View {
-        MovieList()
+        MovieList(userId: "") //.environmentObject(MovieListViewModel())
     }
 }

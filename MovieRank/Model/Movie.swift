@@ -1,13 +1,4 @@
-//
-//  Movie.swift
-//  MovieRank
-//
-//  Created by Egor on 1.03.24.
-//
-
 import Foundation
-import SwiftUI
-
 
 enum Genres : String, CaseIterable, Identifiable, Hashable{
     var id: Self{
@@ -28,7 +19,8 @@ enum Genres : String, CaseIterable, Identifiable, Hashable{
     case Other
 }
 
-// TODO: Add release date and country
+// by default nil values don't encoded
+// TODO: check this
 struct Movie : Identifiable, Codable{
     let id: String
     let name: String
@@ -39,5 +31,14 @@ struct Movie : Identifiable, Codable{
     let genre: [String]
     let director: [String]
     let description: String
+    var favouritesProperties: FavouritesProperties? = nil
 }
 
+struct FavouritesProperties: Codable{
+    let purpose: FavouritesPurpose
+}
+
+enum FavouritesPurpose: String, Codable {
+    case WatchLater
+    case Favourite
+}

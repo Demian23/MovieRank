@@ -15,6 +15,8 @@ struct InfoLine: View {
     }
 }
 
-#Preview {
-    InfoLine(imageName: "globe", title: "Country", valueText: "Belarus", tintColor: Color(.systemBlue), valueColor: Color(.systemMint))
+struct InfoLine_Preview: PreviewProvider {
+    static var previews: some View {
+        InfoLine(imageName: "globe", title: "Country", valueText: "Belarus", tintColor: Color(.systemBlue), valueColor: Color(.systemMint))
+    }
 }

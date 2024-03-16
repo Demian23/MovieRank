@@ -57,6 +57,8 @@ struct AsyncButtonWithResultNotificationAndErrorHandling<LabelType: View>: View 
 }
 
 
-#Preview {
-    AsyncButtonWithResultNotificationAndErrorHandling(closure:{print("Closure")}, errorHandler: {error in print(error)}, buttonLabel: {Text("Test")}, notificationTitle: "Info", notificationMessage: "String printed")
+struct AsyncButtonWithResultNotificationAndErrorHandling_Preview: PreviewProvider {
+    static var previews: some View {
+        AsyncButtonWithResultNotificationAndErrorHandling(closure:{print("Closure")}, errorHandler: {error in print(error)}, buttonLabel: {Text("Test")}, notificationTitle: "Info", notificationMessage: "String printed")
+    }
 }
