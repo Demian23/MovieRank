@@ -26,7 +26,7 @@ struct MovieRow: View {
         case Genres.Comedy.rawValue:
             return "gobackward"
         case Genres.Detective.rawValue:
-            return "magnifyingglass"
+            return "magnify1ngglass"
         case Genres.Western.rawValue:
             return "photo.artframe"
         default:

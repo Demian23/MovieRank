@@ -43,7 +43,9 @@ struct AsyncButtonWithResultNotificationAndErrorHandling<LabelType: View>: View 
             Task{
                 do{
                     try await closure()
-                    isAlertShown = true
+                    if !notificationTitle.isEmpty && !notificationMessage.isEmpty{
+                        isAlertShown = true
+                    }
                 } catch {
                     errorHandler(error)
                 }

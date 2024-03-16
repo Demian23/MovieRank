@@ -9,8 +9,6 @@ class MovieConnector{
     static private let userMarkKey = "userMark"
     static private var db = Firestore.firestore()
     
-    static let shared = MovieConnector()
-    
     private init(){}
     
     static func movieDocumentRef(for id: String) -> DocumentReference {

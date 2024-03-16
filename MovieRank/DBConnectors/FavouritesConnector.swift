@@ -15,13 +15,22 @@ final class FavouritesConnector {
     static func addMovieForUser(movieId id: String, for uid: String, movieProperties prop: FavouritesProperties? = nil) async throws {
         let to = FavouritesConnector.favouritesCollectionRefForUser(for: uid).document(id);
         let data = prop ?? FavouritesProperties.init(purpose: FavouritesPurpose.Favourite)
-        let encodedData = try Firestore.Encoder().encode(prop)
+        let encodedData = try Firestore.Encoder().encode(data)
         try await to.setData(encodedData)
     }
     
     static func deleteMovieForUser(movieId id: String, for uid: String) async throws{
         let to = FavouritesConnector.favouritesCollectionRefForUser(for: uid).document(id);
         try await to.delete()
+    }
+    
+    static func isFavourites(movieId id: String, for uid: String) async throws -> Bool {
+        let doc = try await favouritesCollectionRefForUser(for: uid).document(id).getDocument()
+        if doc.exists {
+            return true
+        } else {
+            return false
+        }
     }
     
     static func getProperties(movieId id: String, for uid: String) async throws -> FavouritesProperties?{

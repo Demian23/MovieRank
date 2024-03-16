@@ -9,7 +9,26 @@ struct MovieList: View {
             List{
                 ForEach(moviesModel.filteredMovies){
                     movie in NavigationLink{
-                        //MovieDetail(movie: movie, userId: userId)
+                        MovieDetail(movie: movie,
+                            onMarkUpdate: {mark in 
+                            try await moviesModel.onMarkUpdate(
+                                for: movie.id, 
+                                from: userId, 
+                                mark: mark)
+                            },
+                            onFavouritesStateChanging: {isFavourite in 
+                                try await moviesModel.onFavouritesChange(
+                                    for: movie.id, 
+                                    from: userId, 
+                                    isFavourite: isFavourite)
+                            }, 
+                                fetchAllDetailData: {completion in
+                                    moviesModel.fetchDetailData(
+                                    for: movie.id, 
+                                    from: userId, 
+                                    completion: completion)
+                            } 
+                        )
                     } label: {
                         MovieRow(movie: movie)
                     }
@@ -18,11 +37,5 @@ struct MovieList: View {
             .navigationTitle("Movies")
             .searchable(text: $moviesModel.searchText)
         }
-    }
-}
-
-struct MovieList_Previews: PreviewProvider {
-    static var previews: some View {
-        MovieList(userId: "") //.environmentObject(MovieListViewModel())
     }
 }
