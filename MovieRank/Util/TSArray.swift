@@ -2,7 +2,7 @@ import Foundation
 
 // Implementation of thread safe array
 
-public class TSArray<Element>{
+public class TSArray<Element> : RandomAccessCollection {
     private let queue = DispatchQueue(label: "MovieRankTSArray", attributes: .concurrent);
     private var array: [Element] = []
     public init(){}
@@ -10,6 +10,24 @@ public class TSArray<Element>{
         self.init()
         array += initElements
     }
+    
+    public var startIndex: Int {
+        var result: Int = 0
+        queue.sync{
+            result = array.startIndex
+            
+        }
+        return result
+    }
+    
+    public var endIndex: Int {
+        var result: Int = 0
+        queue.sync{
+            result = array.endIndex
+        }
+        return result
+    }
+    
     var first: Element? {
         var result: Element?
         queue.sync {
@@ -24,14 +42,14 @@ public class TSArray<Element>{
         }
         return result;
     }
-    var count: Int {
+    public var count: Int {
         var result = 0
         queue.sync {
             result = array.count;
         }
         return result;
     }
-    var isEmpty: Bool {
+    public var isEmpty: Bool {
         var result = true
         queue.sync {
             result = array.isEmpty;
@@ -74,12 +92,29 @@ public extension TSArray{
         }
     }
     
-    func arrayCopy() -> [Element]{
-        return array;
+    func filter(_ isIncluded: @escaping (Element) -> Bool) -> TSArray{
+        var result: TSArray?
+        queue.sync { result = TSArray(self.array.filter(isIncluded)) }
+        return result!
     }
 }
 
 public extension TSArray {
+    func index(after i: Int) -> Int {
+        var result: Int = 0
+        queue.sync {
+            result = self.array.index(after: i)
+        }
+        return result
+    }
+    func index(before i: Int) -> Int {
+        var result: Int = 0
+        queue.sync {
+            result = self.array.index(before: i)
+        }
+        return result
+    }
+    
     func index(where predicate: (Element) -> Bool) -> Int? {
         var result: Int?
         queue.sync { result = self.array.firstIndex(where: predicate) }
@@ -99,6 +134,7 @@ public extension TSArray {
             }
             
             return result
+            
         }
         set {
             guard let newValue = newValue else { return }

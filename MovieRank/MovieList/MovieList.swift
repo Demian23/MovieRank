@@ -14,7 +14,7 @@ struct MovieList: View {
                             try await moviesModel.onMarkUpdate(
                                 for: movie.id, 
                                 from: userId, 
-                                mark: mark)
+                                mark: mark, completion: moviesModel.localUpdate)
                             },
                             onFavouritesStateChanging: {isFavourite in 
                                 try await moviesModel.onFavouritesChange(

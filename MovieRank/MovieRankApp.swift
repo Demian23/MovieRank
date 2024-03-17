@@ -4,12 +4,11 @@ import Firebase
 @main
 struct MovieRankApp: App {
     @StateObject var authModel = AuthViewModel()
-    @StateObject var moviesModel = MovieListViewModel()
     
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
     var body: some Scene {
         WindowGroup {
-            ContentView().environmentObject(moviesModel).environmentObject(authModel).withErrorHandling()
+            ContentView().environmentObject(authModel).withErrorHandling()
         }
     }
 }

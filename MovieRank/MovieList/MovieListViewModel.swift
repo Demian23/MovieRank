@@ -1,8 +1,9 @@
 import Foundation
 
 // TODO: add pagination
-@MainActor
-class MovieListViewModel : ObservableObject {
+
+public class MovieListViewModel : ObservableObject {
+    // it's better to use dictionary here
     @Published var movies: [Movie] = []
     @Published var searchText: String  = ""
     
@@ -19,9 +20,17 @@ class MovieListViewModel : ObservableObject {
             completion(mark, isFavouriteMovie)
         }
     }
-    
-    func onMarkUpdate(for movieId: String, from uid: String, mark: String) async throws {
+   
+    @MainActor
+    func onMarkUpdate(for movieId: String, from uid: String, mark: String, completion: (Movie)->Void) async throws {
         try await MovieConnector.updateOrCreateNewMarkForMovie(movieId: movieId, currentUserId: uid, newMark: mark)
+        guard let movie = try await MovieConnector.getMovie(by: movieId) else {return}
+        completion(movie)
+    }
+    
+    func localUpdate(newMovie: Movie){
+        guard let index = movies.firstIndex(where: {movie in movie.id == newMovie.id}) else {return}
+        movies[index] = newMovie
     }
     
     func onFavouritesChange(for movieId: String, from uid: String, isFavourite: Bool) async throws {
@@ -42,6 +51,7 @@ class MovieListViewModel : ObservableObject {
         }
     }
     
+    @MainActor
     func getAllMovies() async throws {
         movies = try await MovieConnector.getAllMovies()
     }

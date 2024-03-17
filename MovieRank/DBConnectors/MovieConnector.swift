@@ -34,7 +34,7 @@ class MovieConnector{
     }
     
     static func getMovie(by id: String) async throws -> Movie? {
-       return nil
+        return try await movieDocumentRef(for: id).getDocument(as: Movie?.self)
     }
     
     static func updateOrCreateNewMarkForMovie(movieId id: String, currentUserId uid: String, newMark mark: String) async throws

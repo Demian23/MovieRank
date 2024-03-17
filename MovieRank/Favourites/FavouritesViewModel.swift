@@ -2,22 +2,17 @@ import Foundation
 import SwiftUI
 import Firebase
 
-@MainActor
 public class FavouritesViewModel : ObservableObject {
     private var favouritesListener: ListenerRegistration? = nil
-    public var isListening: Bool {favouritesListener != nil}
     
     @Published var searchText: String  = ""
-    @EnvironmentObject var authModel: AuthViewModel
-    @EnvironmentObject var movieListModel: MovieListViewModel
+    // TODO: array should be thread safe
+    @Published var movies: [Movie] = []//TSArray<Movie> = TSArray<Movie>()
+    @Published var isFetched = false
     
-    @Published var movies: TSArray<Movie> = TSArray<Movie>()
-    
-    init() {
-        Task{
-            try await getAllFavourites()
-        }
-        handleRealtimeChangesInFavourites()
+    @MainActor
+    func fetchFavouritesWithLookUp(userId uid: String, with moviesVM: MovieListViewModel) {
+        handleRealtimeChangesInFavourites(uid: uid, movieListVM: moviesVM)
     }
     
     deinit{
@@ -27,23 +22,18 @@ public class FavouritesViewModel : ObservableObject {
         
     var filteredMovies: [Movie] {
         if searchText.isEmpty {
-            return movies.arrayCopy();
+            return self.movies
         } else{
-            return movies.arrayCopy().filter {
-                movie in movie.name.lowercased().contains(searchText.lowercased())
+            return self.filteredMovies.filter {
+                movie in movie.name.lowercased().contains(self.searchText.lowercased())
             }
         }
     }
-        
 }
 
 
 // MARK: logic
 public extension FavouritesViewModel{
-    
-    private func getAllFavourites() async throws {
-        movies += try await FavouritesConnector.getAllForUserWithLocalLookup(for:authModel.uid!, localMovies: movieListModel.movies)
-    }
     
     func clearCurrentState() {
         favouritesListener?.remove()
@@ -51,9 +41,17 @@ public extension FavouritesViewModel{
         favouritesListener = nil
     }
     
-    func handleRealtimeChangesInFavourites() {
+    func localUpdate(newMovie: Movie){
+        guard let index = movies.firstIndex(where: {movie in movie.id == newMovie.id}) else {return}
+        var favProp = newMovie.favouritesProperties ?? movies[index].favouritesProperties!
+        movies[index] = newMovie
+        movies[index].favouritesProperties = favProp
+    }
+    
+    @MainActor
+    func handleRealtimeChangesInFavourites(uid: String, movieListVM: MovieListViewModel) {
         // TODO: when logout detach too
-        let currentFavouritesRef = FavouritesConnector.favouritesCollectionRefForUser(for: authModel.uid!)
+        let currentFavouritesRef = FavouritesConnector.favouritesCollectionRefForUser(for: uid)
         if favouritesListener == nil {
             favouritesListener = currentFavouritesRef.addSnapshotListener {querySnapshot, error in
                 // throw pointless, cause where we will handle it?
@@ -72,17 +70,23 @@ public extension FavouritesViewModel{
                         let movieId = diff.document.documentID
                         // TODO: need incapsulation
                         let favProp = try! diff.document.data(as: FavouritesProperties.self)
-                        Task {
-                            guard var movie = try await MovieConnector.getMovie(by: movieId) else {return}
+                        if let index = movieListVM.movies.firstIndex(where: {movie in movie.id == movieId}){
+                            var movie = movieListVM.movies[index]
                             movie.favouritesProperties = favProp
                             self.movies.append(movie)
+                        } else {
+                            Task {
+                                guard var movie = try await MovieConnector.getMovie(by: movieId) else {return}
+                                movie.favouritesProperties = favProp
+                                self.movies.append(movie)
+                            }
                         }
                     }
                     if diff.type == .modified {
                         let movieId = diff.document.documentID
                         let favProp = try! diff.document.data(as: FavouritesProperties.self)
-                        if let index = self.movies.index(where: {favMovie in favMovie.id == movieId}) {
-                            self.movies[index]!.favouritesProperties = favProp
+                        if let index = self.movies.firstIndex(where: {favMovie in favMovie.id == movieId}) {
+                            self.movies[index].favouritesProperties = favProp
                         } else {
                             Task {
                                 guard var movie = try await MovieConnector.getMovie(by: movieId) else {return}
@@ -93,7 +97,7 @@ public extension FavouritesViewModel{
                     }
                     if diff.type == .removed {
                         let movieId = diff.document.documentID
-                        if let index = self.movies.index(where: {favMovie in favMovie.id == movieId}) {
+                        if let index = self.movies.firstIndex(where: {favMovie in favMovie.id == movieId}) {
                             self.movies.remove(at: index)
                         }
                     }

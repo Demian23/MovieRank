@@ -57,7 +57,7 @@ struct ProfileView: View {
             }
             
             
-            ButtonWithResultNotificationAndErrorHandling(buttonLabel: signOutLabel, closure: {try authModel.signOut()}, errorHandler: errorHandler, notificationTitle:"", notificationMessage: "")
+            ButtonWithResultNotificationAndErrorHandling(buttonLabel: signOutLabel, closure: {FirestoreListenersManager.shared.detachAll();try authModel.signOut()}, errorHandler: errorHandler, notificationTitle:"", notificationMessage: "")
             
             AsyncButtonWithResultNotificationAndErrorHandling(closure: {try await authModel.sendResetPasswordEmail()}, errorHandler: errorHandler, buttonLabel: resetPassLabel, notificationTitle: "Info", notificationMessage: "Mail with resetting instruns is sended on \(userEmail)")
             

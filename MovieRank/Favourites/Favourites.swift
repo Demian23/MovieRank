@@ -1,25 +1,50 @@
 import SwiftUI
-/*
 
 struct Favourites: View {
-    @EnvironmentObject var fav: FavouritesViewModel
+    @EnvironmentObject var moviesModel: MovieListViewModel
+    @EnvironmentObject var errorHandling: ErrorHandling
+    @StateObject var favouritesModel =  FavouritesViewModel()
+    
     let userId: String
     
     var body: some View {
         NavigationStack{
             List{
-                ForEach(fav.filteredMovies){
-                    favouriteMovie in NavigationLink {
-                        MovieDetail(movie: favouriteMovie.movie, userId: userId)
+                ForEach(favouritesModel.filteredMovies){
+                    movie in NavigationLink {
+                        MovieDetail(movie: movie,
+                            onMarkUpdate: {mark in
+                            try await moviesModel.onMarkUpdate(
+                                for: movie.id,
+                                from: userId,
+                                mark: mark, completion: {newMovie in moviesModel.localUpdate(newMovie:newMovie); favouritesModel.localUpdate(newMovie: newMovie)})
+                            },
+                            onFavouritesStateChanging: {isFavourite in
+                                try await moviesModel.onFavouritesChange(
+                                    for: movie.id,
+                                    from: userId,
+                                    isFavourite: isFavourite)
+                            },
+                                fetchAllDetailData: {completion in
+                                    moviesModel.fetchDetailData(
+                                    for: movie.id,
+                                    from: userId,
+                                    completion: completion)
+                            }
+                        )
                     } label: {
-                        Image(systemName: favouriteMovie.purpose == FavouritesPurpose.WatchLater.rawValue ? "tv" : "star.fill")
-                        MovieRow(movie: favouriteMovie.movie)
+                        FavouritesRow(movie: movie)
                     }
                 }
             }
-            .navigationTitle("Favourites")
-            .searchable(text: $fav.searchText)
+            .navigationTitle("Movies")
+            .searchable(text: $favouritesModel.searchText)
+            .onAppear(){
+                if !favouritesModel.isFetched {
+                    favouritesModel.fetchFavouritesWithLookUp(userId: userId, with: moviesModel)
+                    favouritesModel.isFetched = true
+                }
+            }
         }
     }
 }
-*/

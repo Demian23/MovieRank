@@ -44,7 +44,7 @@ struct MovieDetail: View {
                     AsyncButtonWithResultNotificationAndErrorHandling(closure: {isFavourite = !isFavourite; try await onFavouritesStateChanging(isFavourite)}, errorHandler: errorHandler, buttonLabel: {Image(systemName: isFavourite ? "star.fill" : "star")}, notificationTitle: "", notificationMessage: "")
                     InputView(text: $editedMark, title: "Your mark", placeholder: editedMark).padding(.horizontal)
                     Spacer()
-                    AsyncButtonWithResultNotificationAndErrorHandling(closure: {try await onMarkUpdate(editedMark)}, errorHandler: errorHandler, buttonLabel: {Text("Rank").foregroundColor(.white).frame(width: 70, height: 40)}, notificationTitle: "Info", notificationMessage: "Mark changed to \(editedMark).")
+                    AsyncButtonWithResultNotificationAndErrorHandling(closure: {try await onMarkUpdate(editedMark)}, errorHandler: errorHandler, buttonLabel: {Text("Rank").foregroundColor(.white).frame(width: 70, height: 40)}, notificationTitle: "", notificationMessage: "")
                         .background(Color(.systemBlue))
                         .cornerRadius(10)
                         .padding(.top)

@@ -1,6 +1,5 @@
 import Foundation
 import Firebase
-@MainActor
 final class FavouritesConnector {
     private static let favourites = "favourites"
     private static let favouritesForUser = "userMovies"

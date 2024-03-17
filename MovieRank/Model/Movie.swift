@@ -21,8 +21,8 @@ enum Genres : String, CaseIterable, Identifiable, Hashable{
 
 // by default nil values don't encoded
 // TODO: check this
-struct Movie : Identifiable, Codable{
-    let id: String
+public struct Movie : Identifiable, Codable{
+    public let id: String
     let name: String
     let releaseDate: Date
     let marksAmount: UInt64
@@ -41,4 +41,13 @@ struct FavouritesProperties: Codable{
 enum FavouritesPurpose: String, Codable {
     case WatchLater
     case Favourite
+    
+    func toImageName() -> String{
+        switch (self){
+        case .WatchLater:
+           return "sparkle.magnifyingglass"
+        case .Favourite:
+            return "star.square"
+        }
+    }
 }

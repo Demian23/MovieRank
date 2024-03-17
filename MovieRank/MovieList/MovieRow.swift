@@ -11,7 +11,7 @@ struct MovieRow: View {
     
     var body: some View {
         HStack {
-            Image(systemName: genreToImageName(movie.genre.first!)).imageScale(.large).padding(.trailing, 5)
+            Image(systemName: MovieRow.genreToImageName(movie.genre.first!)).imageScale(.large).padding(.trailing, 5)
             Text(movie.name).font(.title2).fontWeight(.medium)
             Spacer()
             Text(MovieRow.formatter.string(from: movie.releaseDate))
@@ -19,7 +19,7 @@ struct MovieRow: View {
         }
     }
     
-    func genreToImageName(_ genre: String) -> String{
+    public static func genreToImageName(_ genre: String) -> String{
         switch(genre){
         case Genres.Action.rawValue:
             return "figure.walk"
