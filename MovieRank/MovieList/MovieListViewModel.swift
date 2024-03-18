@@ -1,8 +1,6 @@
 import Foundation
 import PhotosUI
 
-// TODO: add pagination
-
 public class MovieListViewModel: ObservableObject {
     // it's better to use dictionary here
     @Published var movies: [Movie] = []
@@ -88,5 +86,4 @@ public class MovieListViewModel: ObservableObject {
     func getAllMovies() async throws {
         movies = try await MovieConnector.getAllMovies()
     }
-
 }

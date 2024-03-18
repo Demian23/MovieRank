@@ -1,7 +1,7 @@
 import Foundation
 
-enum Genres : String, CaseIterable, Identifiable, Hashable{
-    var id: Self{
+enum Genres: String, CaseIterable, Identifiable, Hashable {
+    var id: Self {
         return self
     }
     case Action
@@ -19,9 +19,7 @@ enum Genres : String, CaseIterable, Identifiable, Hashable{
     case Other
 }
 
-// by default nil values don't encoded
-// TODO: check this
-public struct Movie : Identifiable, Codable{
+public struct Movie: Identifiable, Codable {
     public let id: String
     let name: String
     let releaseDate: Date
@@ -34,18 +32,18 @@ public struct Movie : Identifiable, Codable{
     var favouritesProperties: FavouritesProperties? = nil
 }
 
-struct FavouritesProperties: Codable{
+struct FavouritesProperties: Codable {
     let purpose: FavouritesPurpose
 }
 
 enum FavouritesPurpose: String, Codable {
     case WatchLater
     case Favourite
-    
-    func toImageName() -> String{
-        switch (self){
+
+    func toImageName() -> String {
+        switch self {
         case .WatchLater:
-           return "sparkle.magnifyingglass"
+            return "sparkle.magnifyingglass"
         case .Favourite:
             return "star.square"
         }

@@ -3,30 +3,36 @@ import SwiftUI
 struct Favourites: View {
     @EnvironmentObject var moviesModel: MovieListViewModel
     @EnvironmentObject var errorHandling: ErrorHandling
-    @StateObject var favouritesModel =  FavouritesViewModel()
-    
+    @StateObject var favouritesModel = FavouritesViewModel()
+
     let userId: String
-    
+
     var body: some View {
-        NavigationStack{
-            List{
-                ForEach(favouritesModel.filteredMovies){
-                    movie in NavigationLink {
-                        MovieDetail(movie: movie,
-                            onMarkUpdate: {mark in
-                            try await moviesModel.onMarkUpdate(
-                                for: movie.id,
-                                from: userId,
-                                mark: mark, completion: {newMovie in moviesModel.localUpdate(newMovie:newMovie); favouritesModel.localUpdate(newMovie: newMovie)})
+        NavigationStack {
+            List {
+                ForEach(favouritesModel.filteredMovies) {
+                    movie in
+                    NavigationLink {
+                        MovieDetail(
+                            movie: movie,
+                            onMarkUpdate: { mark in
+                                try await moviesModel.onMarkUpdate(
+                                    for: movie.id,
+                                    from: userId,
+                                    mark: mark,
+                                    completion: { newMovie in
+                                        moviesModel.localUpdate(newMovie: newMovie)
+                                        favouritesModel.localUpdate(newMovie: newMovie)
+                                    })
                             },
-                            onFavouritesStateChanging: {favourite in
+                            onFavouritesStateChanging: { favourite in
                                 try await moviesModel.onFavouritesChange(
                                     for: movie.id,
                                     from: userId,
                                     isFavourite: favourite)
                             },
-                                fetchAllDetailData: {completion, image in
-                                    moviesModel.fetchDetailData(
+                            fetchAllDetailData: { completion, image in
+                                moviesModel.fetchDetailData(
                                     for: movie.id,
                                     from: userId,
                                     completion: completion, imagesCallback: image)
@@ -39,7 +45,7 @@ struct Favourites: View {
             }
             .navigationTitle("Movies")
             .searchable(text: $favouritesModel.searchText)
-            .onAppear(){
+            .onAppear {
                 if !favouritesModel.isFetched {
                     favouritesModel.fetchFavouritesWithLookUp(userId: userId, with: moviesModel)
                     favouritesModel.isFetched = true

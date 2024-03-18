@@ -1,11 +1,11 @@
 import Foundation
-import _PhotosUI_SwiftUI
 import PhotosUI
+import _PhotosUI_SwiftUI
 
 class PhotoSelectorViewModel: ObservableObject {
     @Published var images = [UIImage]()
     @Published var selectedPhotos = [PhotosPickerItem]()
-    
+
     @MainActor
     func convertDataToImage() {
         images.removeAll()

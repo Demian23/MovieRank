@@ -2,10 +2,10 @@ import PhotosUI
 import SwiftUI
 
 struct PhotoSelector: View {
-    @EnvironmentObject var vm : PhotoSelectorViewModel
+    @EnvironmentObject var vm: PhotoSelectorViewModel
     let maxPhotosToSelect = 10
     var size = 300
-        
+
     var body: some View {
         VStack {
             ScrollView(.horizontal) {
@@ -23,7 +23,9 @@ struct PhotoSelector: View {
                 selectionBehavior: .ordered,
                 matching: .images
             ) {
-                Label("Select up to ^[\(maxPhotosToSelect) photo](inflect: true)", systemImage: "photo")
+                Label(
+                    "Select up to ^[\(maxPhotosToSelect) photo](inflect: true)",
+                    systemImage: "photo")
             }
         }
         .padding()

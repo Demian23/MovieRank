@@ -1,0 +1,2 @@
+#! /bin/zsh
+swift-format format -ipr ./MovieRank/

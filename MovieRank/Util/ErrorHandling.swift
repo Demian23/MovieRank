@@ -1,28 +1,28 @@
 import SwiftUI
 
-struct ErrorAlert: Identifiable{
+struct ErrorAlert: Identifiable {
     var id = UUID()
     var message: String
-    var dismissAction: (()->Void)?
+    var dismissAction: (() -> Void)?
 }
 
-class ErrorHandling: ObservableObject{
+class ErrorHandling: ObservableObject {
     @Published var currentAllert: ErrorAlert?
-    
-    func handle(error: Error){
+
+    func handle(error: Error) {
         currentAllert = ErrorAlert(message: error.localizedDescription)
     }
 }
 
-struct HandleErrorsByShowingAlertViewModifier: ViewModifier{
+struct HandleErrorsByShowingAlertViewModifier: ViewModifier {
     @StateObject var errorHandling = ErrorHandling()
-    
+
     func body(content: Content) -> some View {
         content
             .environmentObject(errorHandling)
             .background(
                 EmptyView()
-                    .alert(item: $errorHandling.currentAllert){ currentAlert in
+                    .alert(item: $errorHandling.currentAllert) { currentAlert in
                         Alert(
                             title: Text("Error"),
                             message: Text(currentAlert.message),
@@ -36,7 +36,7 @@ struct HandleErrorsByShowingAlertViewModifier: ViewModifier{
 }
 
 extension View {
-    func withErrorHandling()-> some View {
+    func withErrorHandling() -> some View {
         modifier(HandleErrorsByShowingAlertViewModifier())
     }
 }

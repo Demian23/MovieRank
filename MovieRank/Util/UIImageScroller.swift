@@ -7,7 +7,7 @@ struct UIImageScroller: View {
         ZStack {
             Color.secondary
                 .ignoresSafeArea()
-            
+
             TabView(selection: $selectedImage) {
                 ForEach(images.indices, id: \.self) { index in
                     ZStack(alignment: .topLeading) {
@@ -21,7 +21,7 @@ struct UIImageScroller: View {
             .frame(height: 300)
             .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
             .ignoresSafeArea()
-            
+
             HStack {
                 ForEach(0..<images.count, id: \.self) { index in
                     Capsule()

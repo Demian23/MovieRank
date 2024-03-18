@@ -24,24 +24,24 @@ struct MultiSelector<LabelView: View, Selectable: Identifiable & Hashable>: View
 
     private func multiSelectionView() -> some View {
         MultiSelectionView(
-                    options: options,
-                    optionToString: optionToString,
-                    selected: selected
-                )
+            options: options,
+            optionToString: optionToString,
+            selected: selected
+        )
     }
 }
 struct MultiSelector_Previews: PreviewProvider {
-  
+
     @State
     static var selected: Set<Genres> = Set()
-    
+
     static var previews: some View {
         NavigationView {
             Form {
                 MultiSelector<Text, Genres>(
                     label: Text("Multiselect"),
                     options: Genres.allCases,
-                    optionToString: { $0.rawValue},
+                    optionToString: { $0.rawValue },
                     selected: $selected
                 )
             }.navigationTitle("Title")

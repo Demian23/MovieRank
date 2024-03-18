@@ -6,7 +6,7 @@ struct MultiSelectionView<Selectable: Identifiable & Hashable>: View {
 
     @Binding
     var selected: Set<Selectable>
-    
+
     var body: some View {
         List {
             ForEach(options) { selectable in
@@ -40,8 +40,9 @@ struct MultiSelectionView_Previews: PreviewProvider {
     }
 
     @State
-    static var selected: Set<IdentifiableString> = Set(["A", "C"].map { IdentifiableString(string: $0) })
-    
+    static var selected: Set<IdentifiableString> = Set(
+        ["A", "C"].map { IdentifiableString(string: $0) })
+
     static var previews: some View {
         NavigationView {
             MultiSelectionView(
