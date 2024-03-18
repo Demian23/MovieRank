@@ -1,59 +1,57 @@
 import SwiftUI
+import AlertToast
 
 struct ButtonWithResultNotificationAndErrorHandling<LabelType: View>: View {
     
-    let buttonLabel: () -> LabelType
     let closure: () throws -> Void
     let errorHandler: (Error) -> Void
-    let notificationTitle: String
-    let notificationMessage: String
-    @State var isAlertShown = false
-    
+    let buttonLabel: () -> LabelType
+    let newAlert: (()->AlertToast)?
+    @EnvironmentObject var alert: AlertViewModel
+        
     var body: some View {
-        Button{
-            do{
-                try closure()
-                if !notificationTitle.isEmpty && !notificationMessage.isEmpty{
-                    isAlertShown = true
+        VStack{
+            Button{
+                do{
+                    try closure()
+                    if newAlert != nil {
+                        alert.alertToast = newAlert!()
+                    }
+                    
+                } catch {
+                    errorHandler(error)
                 }
-            } catch {
-                errorHandler(error)
+            } label: {
+               buttonLabel()
             }
-        } label: {
-           buttonLabel()
-        }.alert(isPresented: $isAlertShown){
-           Alert(title: Text(notificationTitle), message: Text( notificationMessage))
         }
     }
 }
-
 struct AsyncButtonWithResultNotificationAndErrorHandling<LabelType: View>: View {
     
     let closure: () async throws -> Void
     let errorHandler: (Error) -> Void
     let buttonLabel: () -> LabelType
-    
-    let notificationTitle: String
-    let notificationMessage: String
-    
-    @State var isAlertShown = false
-    
+    let newAlert: (()->AlertToast)?
+    @EnvironmentObject var alert: AlertViewModel
+        
     var body: some View {
-        Button{
-            Task{
-                do{
-                    try await closure()
-                    if !notificationTitle.isEmpty && !notificationMessage.isEmpty{
-                        isAlertShown = true
+        VStack{
+            Button{
+                Task{
+                    do{
+                        try await closure()
+                        if newAlert != nil {
+                            alert.alertToast = newAlert!()
+                        }
+                        
+                    } catch {
+                        errorHandler(error)
                     }
-                } catch {
-                    errorHandler(error)
                 }
+            } label: {
+               buttonLabel()
             }
-        } label: {
-           buttonLabel()
-        }.alert(isPresented: $isAlertShown){
-           Alert(title: Text(notificationTitle), message: Text( notificationMessage))
         }
     }
 }
@@ -61,6 +59,6 @@ struct AsyncButtonWithResultNotificationAndErrorHandling<LabelType: View>: View 
 
 struct AsyncButtonWithResultNotificationAndErrorHandling_Preview: PreviewProvider {
     static var previews: some View {
-        AsyncButtonWithResultNotificationAndErrorHandling(closure:{print("Closure")}, errorHandler: {error in print(error)}, buttonLabel: {Text("Test")}, notificationTitle: "Info", notificationMessage: "String printed")
+        AsyncButtonWithResultNotificationAndErrorHandling(closure:{print("Closure")}, errorHandler: {error in print(error)}, buttonLabel: {Text("Test")}, newAlert: {AlertToast(type: .regular, title: "Let's check")} ).environmentObject(AlertViewModel())
     }
 }

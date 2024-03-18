@@ -7,6 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7418427E2BA82AE300424280 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 7418427D2BA82AE300424280 /* FirebaseStorage */; };
+		741842812BA82EEB00424280 /* PhotoSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 741842802BA82EEB00424280 /* PhotoSelector.swift */; };
+		741842832BA82F4000424280 /* PhotoSelectorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 741842822BA82F4000424280 /* PhotoSelectorViewModel.swift */; };
+		741842862BA83A2A00424280 /* MovieStorageConnector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 741842852BA83A2A00424280 /* MovieStorageConnector.swift */; };
+		741842882BA8439A00424280 /* ImagesUploadProgressObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 741842872BA8439A00424280 /* ImagesUploadProgressObserver.swift */; };
+		7418428B2BA8560D00424280 /* AlertToast in Frameworks */ = {isa = PBXBuildFile; productRef = 7418428A2BA8560D00424280 /* AlertToast */; };
+		7418428D2BA85DA700424280 /* AlertViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7418428C2BA85DA700424280 /* AlertViewModel.swift */; };
 		741CE9B92B94E08C009EFC01 /* ErrorHandling.swift in Sources */ = {isa = PBXBuildFile; fileRef = 741CE9B82B94E08C009EFC01 /* ErrorHandling.swift */; };
 		742C7AA32BA30A8400ADBF45 /* TSArray.swift in Sources */ = {isa = PBXBuildFile; fileRef = 742C7AA22BA30A8400ADBF45 /* TSArray.swift */; };
 		743AAE332B96FAAB00E8F601 /* MultiSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 743AAE322B96FAAB00E8F601 /* MultiSelector.swift */; };
@@ -23,6 +30,7 @@
 		7447B9172B948E1100F6B601 /* AuthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7447B9162B948E1100F6B601 /* AuthViewModel.swift */; };
 		7447B91A2B94909A00F6B601 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7447B9192B94909A00F6B601 /* ContentView.swift */; };
 		7447B91D2B94959100F6B601 /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 7447B91C2B94959100F6B601 /* FirebaseFirestoreSwift */; };
+		746203F12BA8A781003AE696 /* UIImageScroller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 746203F02BA8A781003AE696 /* UIImageScroller.swift */; };
 		7463FF9B2BA1C5FA00A60A13 /* Favourites.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7463FF9A2BA1C5FA00A60A13 /* Favourites.swift */; };
 		7463FF9D2BA1C79000A60A13 /* FavouritesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7463FF9C2BA1C79000A60A13 /* FavouritesViewModel.swift */; };
 		746D42AC2B92F85500B933AA /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 746D42AB2B92F85500B933AA /* LoginView.swift */; };
@@ -44,6 +52,11 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		741842802BA82EEB00424280 /* PhotoSelector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoSelector.swift; sourceTree = "<group>"; };
+		741842822BA82F4000424280 /* PhotoSelectorViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoSelectorViewModel.swift; sourceTree = "<group>"; };
+		741842852BA83A2A00424280 /* MovieStorageConnector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieStorageConnector.swift; sourceTree = "<group>"; };
+		741842872BA8439A00424280 /* ImagesUploadProgressObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagesUploadProgressObserver.swift; sourceTree = "<group>"; };
+		7418428C2BA85DA700424280 /* AlertViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertViewModel.swift; sourceTree = "<group>"; };
 		741CE9B82B94E08C009EFC01 /* ErrorHandling.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorHandling.swift; sourceTree = "<group>"; };
 		742C7AA22BA30A8400ADBF45 /* TSArray.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TSArray.swift; sourceTree = "<group>"; };
 		743AAE322B96FAAB00E8F601 /* MultiSelector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiSelector.swift; sourceTree = "<group>"; };
@@ -59,6 +72,7 @@
 		7447B9102B94897100F6B601 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		7447B9162B948E1100F6B601 /* AuthViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewModel.swift; sourceTree = "<group>"; };
 		7447B9192B94909A00F6B601 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		746203F02BA8A781003AE696 /* UIImageScroller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageScroller.swift; sourceTree = "<group>"; };
 		7463FF9A2BA1C5FA00A60A13 /* Favourites.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Favourites.swift; sourceTree = "<group>"; };
 		7463FF9C2BA1C79000A60A13 /* FavouritesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouritesViewModel.swift; sourceTree = "<group>"; };
 		746D42AB2B92F85500B933AA /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
@@ -84,7 +98,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				7447B91D2B94959100F6B601 /* FirebaseFirestoreSwift in Frameworks */,
+				7418427E2BA82AE300424280 /* FirebaseStorage in Frameworks */,
 				74C08B4B2B9206BF003A37F2 /* FirebaseAnalytics in Frameworks */,
+				7418428B2BA8560D00424280 /* AlertToast in Frameworks */,
 				74C08B4D2B9206BF003A37F2 /* FirebaseAuth in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -92,6 +108,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		7418427F2BA82ED600424280 /* PhotoSelector */ = {
+			isa = PBXGroup;
+			children = (
+				741842802BA82EEB00424280 /* PhotoSelector.swift */,
+				741842822BA82F4000424280 /* PhotoSelectorViewModel.swift */,
+			);
+			path = PhotoSelector;
+			sourceTree = "<group>";
+		};
 		741CE9B72B94E015009EFC01 /* Util */ = {
 			isa = PBXGroup;
 			children = (
@@ -103,6 +128,9 @@
 				96A281982B999ED500871D18 /* ButtonWithResultNotificationAndErrorHandling.swift */,
 				96A0579F2B9B12650023F700 /* InfoLine.swift */,
 				742C7AA22BA30A8400ADBF45 /* TSArray.swift */,
+				741842872BA8439A00424280 /* ImagesUploadProgressObserver.swift */,
+				7418428C2BA85DA700424280 /* AlertViewModel.swift */,
+				746203F02BA8A781003AE696 /* UIImageScroller.swift */,
 			);
 			path = Util;
 			sourceTree = "<group>";
@@ -122,6 +150,7 @@
 				743AAE372B9710A500E8F601 /* MovieConnector.swift */,
 				743AAE392B97185300E8F601 /* UserConnector.swift */,
 				7440A34B2BA48F4E00B8ED84 /* FavouritesConnector.swift */,
+				741842852BA83A2A00424280 /* MovieStorageConnector.swift */,
 			);
 			path = DBConnectors;
 			sourceTree = "<group>";
@@ -216,6 +245,7 @@
 		74C08B382B920563003A37F2 /* MovieRank */ = {
 			isa = PBXGroup;
 			children = (
+				7418427F2BA82ED600424280 /* PhotoSelector */,
 				7463FF992BA1C5CA00A60A13 /* Favourites */,
 				96A637F22B98E3160065220E /* Profile */,
 				743AAE362B97107000E8F601 /* DBConnectors */,
@@ -268,6 +298,7 @@
 				74C08B322B920563003A37F2 /* Sources */,
 				74C08B332B920563003A37F2 /* Frameworks */,
 				74C08B342B920563003A37F2 /* Resources */,
+				746203F92BA8BA8C003AE696 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -278,6 +309,8 @@
 				74C08B4A2B9206BF003A37F2 /* FirebaseAnalytics */,
 				74C08B4C2B9206BF003A37F2 /* FirebaseAuth */,
 				7447B91C2B94959100F6B601 /* FirebaseFirestoreSwift */,
+				7418427D2BA82AE300424280 /* FirebaseStorage */,
+				7418428A2BA8560D00424280 /* AlertToast */,
 			);
 			productName = MovieRank;
 			productReference = 74C08B362B920563003A37F2 /* MovieRank.app */;
@@ -309,6 +342,8 @@
 			mainGroup = 74C08B2D2B920563003A37F2;
 			packageReferences = (
 				74C08B492B9206BF003A37F2 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				741842892BA8560C00424280 /* XCRemoteSwiftPackageReference "AlertToast" */,
+				746203F22BA8B7FA003AE696 /* XCRemoteSwiftPackageReference "swift-format" */,
 			);
 			productRefGroup = 74C08B372B920563003A37F2 /* Products */;
 			projectDirPath = "";
@@ -332,6 +367,26 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		746203F92BA8BA8C003AE696 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/zsh;
+			shellScript = "if which swift-format >/dev/null; then\n    swift-format -m format -i -r ${PROJECT_DIR}\nelse\n    echo \"warning: swift-format not installed\"\nfi\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		74C08B322B920563003A37F2 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -341,11 +396,15 @@
 				746D42AC2B92F85500B933AA /* LoginView.swift in Sources */,
 				7447B91A2B94909A00F6B601 /* ContentView.swift in Sources */,
 				746D42B22B930D5C00B933AA /* ProfileView.swift in Sources */,
+				741842832BA82F4000424280 /* PhotoSelectorViewModel.swift in Sources */,
 				7440A34E2BA49D6B00B8ED84 /* NewMovieViewModel.swift in Sources */,
 				74C08B602B92180B003A37F2 /* MovieDetail.swift in Sources */,
 				96A057A02B9B12650023F700 /* InfoLine.swift in Sources */,
 				746D42B02B93078200B933AA /* RegistrationView.swift in Sources */,
+				741842882BA8439A00424280 /* ImagesUploadProgressObserver.swift in Sources */,
+				741842862BA83A2A00424280 /* MovieStorageConnector.swift in Sources */,
 				743AAE3A2B97185300E8F601 /* UserConnector.swift in Sources */,
+				741842812BA82EEB00424280 /* PhotoSelector.swift in Sources */,
 				7463FF9D2BA1C79000A60A13 /* FavouritesViewModel.swift in Sources */,
 				743AAE382B9710A500E8F601 /* MovieConnector.swift in Sources */,
 				743AAE332B96FAAB00E8F601 /* MultiSelector.swift in Sources */,
@@ -360,7 +419,9 @@
 				7463FF9B2BA1C5FA00A60A13 /* Favourites.swift in Sources */,
 				74C08B3A2B920563003A37F2 /* MovieRankApp.swift in Sources */,
 				741CE9B92B94E08C009EFC01 /* ErrorHandling.swift in Sources */,
+				7418428D2BA85DA700424280 /* AlertViewModel.swift in Sources */,
 				7447B9172B948E1100F6B601 /* AuthViewModel.swift in Sources */,
+				746203F12BA8A781003AE696 /* UIImageScroller.swift in Sources */,
 				96A281992B999ED500871D18 /* ButtonWithResultNotificationAndErrorHandling.swift in Sources */,
 				74C08B532B9206F5003A37F2 /* Movie.swift in Sources */,
 				743AAE352B96FC6200E8F601 /* MultiSelectionView.swift in Sources */,
@@ -567,6 +628,22 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		741842892BA8560C00424280 /* XCRemoteSwiftPackageReference "AlertToast" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/elai950/AlertToast.git";
+			requirement = {
+				kind = exactVersion;
+				version = 1.3.9;
+			};
+		};
+		746203F22BA8B7FA003AE696 /* XCRemoteSwiftPackageReference "swift-format" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/apple/swift-format?trk=article-ssr-frontend-pulse_little-text-block";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 510.0.0;
+			};
+		};
 		74C08B492B9206BF003A37F2 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/firebase/firebase-ios-sdk.git";
@@ -578,6 +655,16 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		7418427D2BA82AE300424280 /* FirebaseStorage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 74C08B492B9206BF003A37F2 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseStorage;
+		};
+		7418428A2BA8560D00424280 /* AlertToast */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 741842892BA8560C00424280 /* XCRemoteSwiftPackageReference "AlertToast" */;
+			productName = AlertToast;
+		};
 		7447B91C2B94959100F6B601 /* FirebaseFirestoreSwift */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 74C08B492B9206BF003A37F2 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;

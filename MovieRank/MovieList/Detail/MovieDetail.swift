@@ -1,18 +1,21 @@
 import SwiftUI
+import AlertToast
 
 struct MovieDetail: View {
-    @EnvironmentObject var errorHandling: ErrorHandling
-    
+    @EnvironmentObject var alert: AlertViewModel
     private let movie: Movie
     private var onMarkUpdate: (String) async throws -> Void
-    private var onFavouritesStateChanging: (Bool) async throws -> Void
+    private var onFavouritesStateChanging: (Bool) async throws -> Bool
     private var fetchAllDetailData: FetchAllDetailDataType
-    @State public var editedMark: String = ""
-    @State public var isFavourite: Bool = false
-    typealias FetchAllDetailDataType = (@escaping (String, Bool) -> Void) -> Void
+    
+    @State private var images: [UIImage] = []
+    @State private var editedMark: String = ""
+    @State private var isFavourite: Bool = false
+    
+    typealias FetchAllDetailDataType = (@escaping (String, Bool) -> Void, @escaping (UIImage)->Void) -> Void
     
     init(movie: Movie, onMarkUpdate: @escaping (String) async throws -> Void,
-         onFavouritesStateChanging: @escaping (Bool) async throws -> Void,
+         onFavouritesStateChanging: @escaping (Bool) async throws -> Bool,
          fetchAllDetailData: @escaping FetchAllDetailDataType)
     {
         self.movie = movie
@@ -22,11 +25,17 @@ struct MovieDetail: View {
     }
     
     var body: some View {
-        let errorHandler = {error in errorHandling.handle(error: error)}
-        
+        let errorHandler : (Error)->Void = {error in
+            alert.alertToast = AlertToast(displayMode: .alert, type: .error(.red), title: "\(error.localizedDescription)")}
         ScrollView{
             VStack{
-                Image(systemName: "photo.circle").resizable().aspectRatio(contentMode: .fit).padding(.top, 30.0).frame(width: 300, height: 400)
+                HStack{
+                    if images.count > 0 {
+                        UIImageScroller(images: $images)
+                    } else {
+                        Image(systemName: "photo.circle").resizable().aspectRatio(contentMode: .fit).padding(.top, 30.0).frame(width: 300, height: 400)
+                    }
+                }
                 HStack{
                     Text(movie.name)
                     Spacer()
@@ -41,10 +50,10 @@ struct MovieDetail: View {
                 
                                                               
                 HStack{
-                    AsyncButtonWithResultNotificationAndErrorHandling(closure: {isFavourite = !isFavourite; try await onFavouritesStateChanging(isFavourite)}, errorHandler: errorHandler, buttonLabel: {Image(systemName: isFavourite ? "star.fill" : "star")}, notificationTitle: "", notificationMessage: "")
+                    AsyncButtonWithResultNotificationAndErrorHandling(closure: {isFavourite = try await onFavouritesStateChanging(isFavourite)}, errorHandler: errorHandler, buttonLabel: {Image(systemName: isFavourite ? "star.fill" : "star")}, newAlert: {AlertToast(type: .complete(Color(.systemYellow)))})
                     InputView(text: $editedMark, title: "Your mark", placeholder: editedMark).padding(.horizontal)
                     Spacer()
-                    AsyncButtonWithResultNotificationAndErrorHandling(closure: {try await onMarkUpdate(editedMark)}, errorHandler: errorHandler, buttonLabel: {Text("Rank").foregroundColor(.white).frame(width: 70, height: 40)}, notificationTitle: "", notificationMessage: "")
+                    AsyncButtonWithResultNotificationAndErrorHandling(closure: {try await onMarkUpdate(editedMark)}, errorHandler: errorHandler, buttonLabel: {Text("Rank").foregroundColor(.white).frame(width: 70, height: 40)}, newAlert: {AlertToast(type: .complete(Color(.systemGreen)), title: "Mark changed to \(editedMark)")})
                         .background(Color(.systemBlue))
                         .cornerRadius(10)
                         .padding(.top)
@@ -60,19 +69,23 @@ struct MovieDetail: View {
         .navigationTitle(movie.name)
         .navigationBarTitleDisplayMode(.inline)
         .onAppear{
-            fetchAllDetailData {mark, favourite in
+            fetchAllDetailData({mark, favourite in
                 DispatchQueue.main.async {
                     self.editedMark = mark
                     self.isFavourite = favourite
                 }
-            }
+            }, {images in
+                    DispatchQueue.main.async {
+                        self.images.append(images)
+                    }
+                })
         }
     }
 }
 
 struct MovieDetail_Previews: PreviewProvider {
     static var previews: some View {
-        let closure: MovieDetail.FetchAllDetailDataType = {completion in completion("90", true)}
-        MovieDetail(movie: Movie(id: NSUUID().uuidString, name: "Matrix", releaseDate: Date(), marksAmount: 1, marksWholeScore: 90, country: ["USA", "New Zeland"], genre: [Genres.Action.rawValue, Genres.Science.rawValue], director: ["Lilly Wachovsky", "Lola Wachovsky"], description: "Bad future"), onMarkUpdate: {mark in }, onFavouritesStateChanging: {val in }, fetchAllDetailData: closure).environmentObject(ErrorHandling())
+        let closure: MovieDetail.FetchAllDetailDataType = {completion, photo in completion("90", true); photo(UIImage())}
+        MovieDetail(movie: Movie(id: NSUUID().uuidString, name: "Matrix", releaseDate: Date(), marksAmount: 1, marksWholeScore: 90, country: ["USA", "New Zeland"], genre: [Genres.Action.rawValue, Genres.Science.rawValue], director: ["Lilly Wachovsky", "Lola Wachovsky"], description: "Bad future"), onMarkUpdate: {mark in }, onFavouritesStateChanging: {val in !val}, fetchAllDetailData: closure).environmentObject(ErrorHandling())
     }
 }

@@ -1,48 +1,44 @@
 import SwiftUI
+import AlertToast
+import PhotosUI
 
 struct NewMovie: View {
-    @EnvironmentObject var errorHandling: ErrorHandling
-    @EnvironmentObject var authModel: AuthViewModel
-    @State private var name = ""
-    @State private var country = ""
-    @State private var genres: Set<Genres> = Set()
-    @State private var director = ""
-    @State private var description = ""
-    @State private var mark = ""
+    @EnvironmentObject var alert: AlertViewModel
+    @StateObject var newMovieVM: NewMovieViewModel = NewMovieViewModel()
+    @StateObject var photoSelectorVM = PhotoSelectorViewModel()
+    @StateObject var imagesProgress = ImagesUploadProgressObserver()
+    let userId: String
     
-    private var isMarkValid: Bool {
-        // TODO: Write normal validation
-            let digitsCharacters = CharacterSet(charactersIn: "0123456789")
-            return CharacterSet(charactersIn: mark).isSubset(of: digitsCharacters)
-        }
+    @State var isAlertShown: Bool = false
+    @State var messagePlacing: String = ""
     
-    @State private var releaseDate: Date = Date()
-    
-    let addNewMovieLabel: () -> SettingsRowView = {
+    private let addNewMovieLabel: () -> SettingsRowView = {
         SettingsRowView(imageName: "folder.badge.plus", title: "Add new Movie", tintColor: .white)
     }
     
     var body: some View {
-        let errorHandler: (Error) -> Void = {error in errorHandling.handle(error: error)}
-        
+        let errorHandler : (Error)->Void = {error in
+            alert.alertToast = AlertToast(displayMode: .alert, type: .error(.red), title: "\(error.localizedDescription)")}
         VStack{
             NavigationView{
-                Form{
-                    InputView(text:$name, title: "Movie", placeholder: "Movie name").listRowSeparator(.hidden)
-                    InputView(text:$country, title: "Country", placeholder: "USA, New Zeland").listRowSeparator(.hidden)
-                    MultiSelector(label: Text("Genres"), options: Genres.allCases, optionToString: {$0.rawValue}, selected: $genres).foregroundColor(.black)
-                    DatePicker("Select a Release Date", selection: $releaseDate, displayedComponents: .date)
-                    InputView(text:$director, title: "Director", placeholder: "Joel Coen, Ethan Coen")
-                    InputView(text:$description, title: "Description", placeholder: "Movie description").listRowSeparator(.hidden)
-                    InputView(text:$mark, title: "Mark", placeholder: "Your mark").listRowSeparator(.hidden)
+                Form {
+                    InputView(text:$newMovieVM.name, title: "Movie", placeholder: "Movie name").listRowSeparator(.hidden)
+                    InputView(text:$newMovieVM.country, title: "Country", placeholder: "USA, New Zeland").listRowSeparator(.hidden)
+                    MultiSelector(label: Text("Genres"), options: Genres.allCases, optionToString: {$0.rawValue}, selected: $newMovieVM.genres).foregroundColor(.black)
+                    DatePicker("Select a Release Date", selection: $newMovieVM.releaseDate, displayedComponents: .date)
+                    InputView(text:$newMovieVM.director, title: "Director", placeholder: "Joel Coen, Ethan Coen")
+                    InputView(text:$newMovieVM.description, title: "Description", placeholder: "Movie description").listRowSeparator(.hidden)
+                    InputView(text:$newMovieVM.mark, title: "Mark", placeholder: "Your mark").listRowSeparator(.hidden)
+                    PhotoSelector(size: 80).frame(width: UIScreen.main.bounds.width - 32, height: 100).environmentObject(photoSelectorVM)
+                    ForEach(imagesProgress.uploadProgess.indices, id: \.self){
+                        index in
+                        
+                        let progress = imagesProgress.uploadProgess[index]
+                        ProgressView(value: progress){Text("\(Int(progress * 100))%")}.padding().listRowSeparator(.hidden)
+                    }
                 }
             }
-            
-            let newMovieClosure = {
-                Movie(id: NSUUID().uuidString, name: name, releaseDate: releaseDate, marksAmount: (mark.isEmpty ? 0 : 1), marksWholeScore: UInt64(mark) ?? 0, country: country.components(separatedBy: ", "), genre: genres.map{$0.rawValue}, director: director.components(separatedBy: ", "), description: description)
-            }
-            
-            AsyncButtonWithResultNotificationAndErrorHandling(closure: {try await NewMovieViewModel.shared.addNewMovie(movie: newMovieClosure(), by: authModel.uid!)}, errorHandler: errorHandler, buttonLabel: addNewMovieLabel, notificationTitle: "Info", notificationMessage: "New movie \"\(name)\" successfully added")
+            AsyncButtonWithResultNotificationAndErrorHandling(closure: {try await newMovieVM.addNewMovie(by: userId, images: photoSelectorVM.images, progressObserver: imagesProgress)}, errorHandler: errorHandler, buttonLabel: addNewMovieLabel, newAlert: {AlertToast(type: .regular, title: "New movie \"\(newMovieVM.name)\" successfully added")})
                 .frame(width: UIScreen.main.bounds.width - 32, height: 42)
                 .disabled(!isFormValid)
                 .opacity((isFormValid ? 1.0 : 0.5))
@@ -50,27 +46,21 @@ struct NewMovie: View {
                 .fontWeight(.semibold)
                 .foregroundColor(.white)
                 .cornerRadius(10)
-                .padding(.top)
-            
+                .padding(.top).listRowSeparator(.hidden)
         }
     }
 }
 
+
 extension NewMovie : InputFormProtocol {
     var isFormValid: Bool {
-        return 
-            !name.isEmpty &&
-            !genres.isEmpty &&
-            !description.isEmpty &&
-            !description.isEmpty &&
-            !director.isEmpty &&
-            isMarkValid
+        return newMovieVM.isInputValid()
     }
 }
 
 
 struct NewMovieView_Preview: PreviewProvider {
     static var previews: some View {
-        NewMovie()
+        NewMovie(userId: "")
     }
 }

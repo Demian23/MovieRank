@@ -1,16 +1,22 @@
 import SwiftUI
 import Firebase
 import FirebaseAuth
+import AlertToast
 
 struct ProfileView: View {
-    @EnvironmentObject var errorHandling: ErrorHandling
     @EnvironmentObject var authModel: AuthViewModel
+    @EnvironmentObject var alert: AlertViewModel
+    
     @State private var isReauthanticate = false
+    @State private var isAlertShown = false
+    @State private var messagePlacing = ""
     
     var body: some View {
-        
         let user = authModel.currentUser ?? User.MOCK_USER
-        let errorHandler = {error in errorHandling.handle(error: error)}
+        let errorHandler : (Error)->Void = {error in
+            alert.alertToast = AlertToast(displayMode: .alert, type: .error(.red), title: "\(error.localizedDescription)")
+        }
+        
         let deleteErrorHandler: (Error)->Void = {
             error in
             if let error = error as NSError?{
@@ -18,7 +24,7 @@ struct ProfileView: View {
                 if code == .requiresRecentLogin {
                     isReauthanticate = true
                 } else {
-                    errorHandling.handle(error: error)
+                    errorHandler(error)
                 }
             }
         }
@@ -57,21 +63,17 @@ struct ProfileView: View {
             }
             
             
-            ButtonWithResultNotificationAndErrorHandling(buttonLabel: signOutLabel, closure: {try authModel.signOut()}, errorHandler: errorHandler, notificationTitle:"", notificationMessage: "")
+            ButtonWithResultNotificationAndErrorHandling( closure: {try authModel.signOut()}, errorHandler: errorHandler, buttonLabel: signOutLabel, newAlert:nil)
+            AsyncButtonWithResultNotificationAndErrorHandling(closure: {try await authModel.sendResetPasswordEmail()}, errorHandler: errorHandler, buttonLabel: resetPassLabel, newAlert: {AlertToast(type: .regular, title: "Check for new mail: \(userEmail)")})
             
-            AsyncButtonWithResultNotificationAndErrorHandling(closure: {try await authModel.sendResetPasswordEmail()}, errorHandler: errorHandler, buttonLabel: resetPassLabel, notificationTitle: "Info", notificationMessage: "Mail with resetting instruns is sended on \(userEmail)")
-            
-            AsyncButtonWithResultNotificationAndErrorHandling(closure: {try await authModel.deleteAccount(); isReauthanticate = true}, errorHandler: deleteErrorHandler, buttonLabel: deleteAccLabel, notificationTitle: "", notificationMessage: "")
-                .confirmationDialog(Text("Account deleting is too sensitive operation. Reauthantication required!"), isPresented: $isReauthanticate, titleVisibility: .visible) {
+            AsyncButtonWithResultNotificationAndErrorHandling(closure: {try await authModel.deleteAccount(); isReauthanticate = true}, errorHandler: deleteErrorHandler, buttonLabel: deleteAccLabel, newAlert: nil)
+                .confirmationDialog(Text("Account deleting is sensitive operation and needs re-authantication"), isPresented: $isReauthanticate, titleVisibility: .visible) {
                     Button("Ok"){
                         isReauthanticate = false
                         do{
                             try authModel.signOut()
-                            Task{
-                                try! await authModel.deleteAccount()
-                            }
                         } catch {
-                            errorHandling.handle(error: error)
+                            errorHandler(error)
                         }
                     }
                     Button("Cancel", role: .cancel){}

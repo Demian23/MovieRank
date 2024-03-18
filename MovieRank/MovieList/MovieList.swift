@@ -16,18 +16,15 @@ struct MovieList: View {
                                 from: userId, 
                                 mark: mark, completion: moviesModel.localUpdate)
                             },
-                            onFavouritesStateChanging: {isFavourite in 
-                                try await moviesModel.onFavouritesChange(
-                                    for: movie.id, 
-                                    from: userId, 
-                                    isFavourite: isFavourite)
-                            }, 
-                                fetchAllDetailData: {completion in
-                                    moviesModel.fetchDetailData(
-                                    for: movie.id, 
-                                    from: userId, 
-                                    completion: completion)
-                            } 
+                            onFavouritesStateChanging: {favourite in
+                                try await moviesModel.onFavouritesChange(for: movie.id, from: userId, isFavourite: favourite)
+                            },
+                            fetchAllDetailData: {completion, photo in
+                                moviesModel.fetchDetailData(
+                                for: movie.id,
+                                from: userId,
+                                completion: completion, imagesCallback: photo)
+                            }
                         )
                     } label: {
                         MovieRow(movie: movie)

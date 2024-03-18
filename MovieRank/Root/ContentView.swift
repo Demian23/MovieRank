@@ -1,9 +1,11 @@
 import SwiftUI
+import AlertToast
 
 struct ContentView: View {
     @EnvironmentObject var authModel: AuthViewModel
     @StateObject var moviesModel = MovieListViewModel()
     @StateObject var favouritesModel = FavouritesViewModel()
+    @StateObject var alert = AlertViewModel()
     var body: some View {
         Group{
             if authModel.currentUserSession != nil && authModel.currentUser != nil {
@@ -14,7 +16,7 @@ struct ContentView: View {
                         Label("Favourites", systemImage: "star.fill")
                     }
                     if authModel.currentUser!.role == Role.Admin.rawValue {
-                        NewMovie()
+                        NewMovie(userId: authModel.uid!)
                             .tabItem{Label("New Movie", systemImage: "plus")}
                     }
                     ProfileView()
@@ -26,6 +28,10 @@ struct ContentView: View {
         }
         .environmentObject(moviesModel)
         .environmentObject(favouritesModel)
+        .environmentObject(alert)
+        .toast(isPresenting: $alert.show){
+            alert.alertToast
+        }
     }
 }
 

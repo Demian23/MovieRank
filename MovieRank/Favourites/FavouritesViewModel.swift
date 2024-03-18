@@ -43,7 +43,7 @@ public extension FavouritesViewModel{
     
     func localUpdate(newMovie: Movie){
         guard let index = movies.firstIndex(where: {movie in movie.id == newMovie.id}) else {return}
-        var favProp = newMovie.favouritesProperties ?? movies[index].favouritesProperties!
+        let favProp = newMovie.favouritesProperties ?? movies[index].favouritesProperties!
         movies[index] = newMovie
         movies[index].favouritesProperties = favProp
     }

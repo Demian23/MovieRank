@@ -19,17 +19,17 @@ struct Favourites: View {
                                 from: userId,
                                 mark: mark, completion: {newMovie in moviesModel.localUpdate(newMovie:newMovie); favouritesModel.localUpdate(newMovie: newMovie)})
                             },
-                            onFavouritesStateChanging: {isFavourite in
+                            onFavouritesStateChanging: {favourite in
                                 try await moviesModel.onFavouritesChange(
                                     for: movie.id,
                                     from: userId,
-                                    isFavourite: isFavourite)
+                                    isFavourite: favourite)
                             },
-                                fetchAllDetailData: {completion in
+                                fetchAllDetailData: {completion, image in
                                     moviesModel.fetchDetailData(
                                     for: movie.id,
                                     from: userId,
-                                    completion: completion)
+                                    completion: completion, imagesCallback: image)
                             }
                         )
                     } label: {
