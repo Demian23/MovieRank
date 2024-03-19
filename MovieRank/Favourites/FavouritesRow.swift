@@ -7,10 +7,7 @@ struct FavouritesRow: View {
             if movie.favouritesProperties != nil {
                 Image(systemName: movie.favouritesProperties!.purpose.toImageName())
             }
-            Text(movie.name).font(.title2).fontWeight(.medium).padding(.horizontal)
-            Spacer()
-            Text(movie.marksWholeScore / movie.marksAmount, format: .number).fontDesign(.rounded)
-                .padding(.horizontal)
+            MovieRow(movie: movie)
         }
     }
 }

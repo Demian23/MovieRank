@@ -18,9 +18,9 @@ struct MovieList: View {
                                     from: userId,
                                     mark: mark, completion: moviesModel.localUpdate)
                             },
-                            onFavouritesStateChanging: { favourite, prop in
+                            onFavouritesStateChanging: { prevState, prop in
                                 try await moviesModel.onFavouritesChange(
-                                    for: movie.id, from: userId, isFavourite: favourite,
+                                    for: movie.id, from: userId, prevState: prevState,
                                     properties: prop)
                             },
                             fetchAllDetailData: { completion, photo in

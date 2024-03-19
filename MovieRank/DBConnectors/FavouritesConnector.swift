@@ -29,6 +29,11 @@ final class FavouritesConnector {
         let to = FavouritesConnector.favouritesCollectionRefForUser(for: uid).document(id)
         try await to.delete()
     }
+    
+    static func updateMoviePurpose(movieId id: String, for uid: String, purpose: FavouritesPurpose) async throws {
+        let to = FavouritesConnector.favouritesCollectionRefForUser(for: uid).document(id)
+        try await to.updateData([favouritesPurposeKey:purpose.rawValue])
+    }
 
     static func isFavourites(movieId id: String, for uid: String) async throws -> Bool {
         let doc = try await favouritesCollectionRefForUser(for: uid).document(id).getDocument()

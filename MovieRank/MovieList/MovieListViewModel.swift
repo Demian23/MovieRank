@@ -14,7 +14,7 @@ public class MovieListViewModel: ObservableObject {
     }
 
     func fetchDetailData(
-        for movieId: String, from uid: String, completion: @escaping (String, Bool) -> Void,
+        for movieId: String, from uid: String, completion: @escaping (String, FavouritesProperties?) -> Void,
         imagesCallback: @escaping (UIImage) -> Void
     ) {
         if let movieImages = images[movieId] {
@@ -36,11 +36,11 @@ public class MovieListViewModel: ObservableObject {
             }
         }
         Task {
-            let isFavouriteMovie = try await FavouritesConnector.isFavourites(
+            let propOptional = try await FavouritesConnector.getProperties(
                 movieId: movieId, for: uid)
             let mark = try await MovieConnector.fetchUserMarkForMovie(
                 movieId: movieId, currentUserId: uid)
-            completion(mark, isFavouriteMovie)
+            completion(mark, propOptional)
         }
     }
 
@@ -62,17 +62,21 @@ public class MovieListViewModel: ObservableObject {
     }
 
     func onFavouritesChange(
-        for movieId: String, from uid: String, isFavourite: Bool, properties: FavouritesProperties
+        for movieId: String, from uid: String, prevState: FavouritesPurpose, properties: FavouritesProperties
     ) async throws
-        -> Bool
-    {
-        if isFavourite {
-            try await FavouritesConnector.deleteMovieForUser(movieId: movieId, for: uid)
-        } else {
-            try await FavouritesConnector.addMovieForUser(
-                movieId: movieId, for: uid, movieProperties: properties)
-        }
-        return !isFavourite
+        -> FavouritesPurpose {
+            if prevState == properties.purpose {
+                try await FavouritesConnector.deleteMovieForUser(movieId: movieId, for: uid)
+                return .none
+            }
+            switch prevState {
+            case .none:
+                try await FavouritesConnector.addMovieForUser(movieId: movieId, for: uid, movieProperties: properties)
+                return properties.purpose
+            case .WatchLater, .Favourite:
+                try await FavouritesConnector.updateMoviePurpose(movieId: movieId, for: uid, purpose: properties.purpose)
+                return properties.purpose
+            }
     }
 
     var filteredMovies: [Movie] {

@@ -1,4 +1,5 @@
 import Foundation
+import SwiftUI
 
 enum Genres: String, CaseIterable, Identifiable, Hashable {
     var id: Self {
@@ -44,10 +45,9 @@ public struct Movie: Identifiable, Codable {
 extension TimeInterval {
     func stringFromTimeInterval() -> String {
         let time = NSInteger(self)
-        let seconds = time % 60
         let minutes = (time / 60) % 60
         let hours = (time / 3600)
-        return String(format: "%0.2d:%0.2d:%0.2d", hours, minutes, seconds)
+        return String(format: "%0.2dh%0.2dm", hours, minutes)
     }
 
 }
@@ -58,7 +58,7 @@ extension String {
         var interval: TimeInterval = 0
         let parts = self.components(separatedBy: ":")
         for (index, part) in parts.reversed().enumerated() {
-            interval += (Double(part) ?? 0) * pow(Double(60), Double(index))
+            interval += (Double(part) ?? 0) * pow(Double(60), Double(index+1))
         }
         return interval
     }
@@ -71,13 +71,16 @@ struct FavouritesProperties: Codable {
 enum FavouritesPurpose: String, Codable {
     case WatchLater
     case Favourite
+    case none
 
-    func toImageName() -> String {
+    func toColor() -> Color{
         switch self {
         case .WatchLater:
-            return "film"
+            return Color(.systemMint)
         case .Favourite:
-            return "star.square"
+            return Color(.systemIndigo)
+        case .none:
+            return Color(.black)
         }
     }
 }

@@ -5,15 +5,15 @@ struct MovieDetail: View {
     @EnvironmentObject var alert: AlertViewModel
     private let movie: Movie
     private var onMarkUpdate: (String) async throws -> Void
-    private var onFavouritesStateChanging: (Bool, FavouritesProperties) async throws -> Bool
+    private var onFavouritesStateChanging: (FavouritesPurpose, FavouritesProperties) async throws -> FavouritesPurpose
     private var fetchAllDetailData: FetchAllDetailDataType
 
     @State private var images: [UIImage] = []
     @State private var editedMark: String = ""
-    @State private var isFavourite: Bool = false
+    @State private var favouriteState: FavouritesPurpose = FavouritesPurpose.none
 
     typealias FetchAllDetailDataType = (
-        @escaping (String, Bool) -> Void, @escaping (UIImage) -> Void
+        @escaping (String, FavouritesProperties?) -> Void, @escaping (UIImage) -> Void
     ) -> Void
 
     static func formatDate(date: Date) -> String {
@@ -25,7 +25,7 @@ struct MovieDetail: View {
 
     init(
         movie: Movie, onMarkUpdate: @escaping (String) async throws -> Void,
-        onFavouritesStateChanging: @escaping (Bool, FavouritesProperties) async throws -> Bool,
+        onFavouritesStateChanging: @escaping (FavouritesPurpose,  FavouritesProperties) async throws -> FavouritesPurpose,
         fetchAllDetailData: @escaping FetchAllDetailDataType
     ) {
         self.movie = movie
@@ -69,17 +69,20 @@ struct MovieDetail: View {
                     VStack {
                         AsyncButtonWithResultNotificationAndErrorHandling(
                             closure: {
-                                isFavourite = try await onFavouritesStateChanging(
-                                    isFavourite, FavouritesProperties(purpose: .Favourite))
+                                favouriteState = try await onFavouritesStateChanging(
+                                    favouriteState, FavouritesProperties(purpose: .Favourite))
                             },
                             errorHandler: errorHandler,
-                            buttonLabel: { Image(systemName: isFavourite ? "star.fill" : "star") },
+                            buttonLabel: { Image(systemName: favouriteState == FavouritesPurpose.Favourite ? "star.fill" : "star") },
                             newAlert: { AlertToast(type: .complete(Color(.systemYellow))) })
                         Spacer()
                         AsyncButtonWithResultNotificationAndErrorHandling(
-                            closure: {},
+                            closure: {
+                                favouriteState = try await onFavouritesStateChanging(
+                                    favouriteState, FavouritesProperties(purpose: .WatchLater))
+                            },
                             errorHandler: errorHandler,
-                            buttonLabel: { Image(systemName: "film") },
+                            buttonLabel: { Image(systemName: favouriteState == FavouritesPurpose.WatchLater ? "film.fill" : "film") },
                             newAlert: { AlertToast(type: .complete(Color(.systemYellow))) })
                     }.frame(width: 50, height: 60)
                     InputView(text: $editedMark, title: "Your mark", placeholder: editedMark)
@@ -102,7 +105,7 @@ struct MovieDetail: View {
                 }
                 .padding(.top)
                 .padding(.horizontal)
-
+                Divider()
                 VStack {
                     HStack {
                         Text("Director" + (movie.director.count > 1 ? "s:" : ":"))
@@ -126,17 +129,18 @@ struct MovieDetail: View {
                     }
                 }.padding()
                 Divider()
-                Text(movie.description).multilineTextAlignment(.leading).font(.title3)
+                Text(movie.description).multilineTextAlignment(.leading).font(.title3).padding(.horizontal)
             }
         }
         .navigationTitle(movie.name)
         .navigationBarTitleDisplayMode(.inline)
         .onAppear {
             fetchAllDetailData(
-                { mark, favourite in
+                { mark, propOptional in
                     DispatchQueue.main.async {
                         self.editedMark = mark
-                        self.isFavourite = favourite
+                        self.favouriteState = propOptional?.purpose ?? .none
+                        
                     }
                 },
                 { images in
@@ -151,7 +155,7 @@ struct MovieDetail: View {
 struct MovieDetail_Previews: PreviewProvider {
     static var previews: some View {
         let closure: MovieDetail.FetchAllDetailDataType = { completion, photo in
-            completion("90", true)
+            completion("90", FavouritesProperties(purpose: .WatchLater))
             photo(UIImage())
         }
         MovieDetail(
@@ -161,7 +165,7 @@ struct MovieDetail_Previews: PreviewProvider {
                 genre: [Genres.Action.rawValue, Genres.SciFi.rawValue],
                 director: ["Lilly Wachovsky", "Lola Wachovsky"], description: "Bad future",
                 duration: 3610),
-            onMarkUpdate: { mark in }, onFavouritesStateChanging: { val, prop in !val },
+            onMarkUpdate: { mark in }, onFavouritesStateChanging: { val, prop in val},
             fetchAllDetailData: closure
         ).environmentObject(ErrorHandling())
     }

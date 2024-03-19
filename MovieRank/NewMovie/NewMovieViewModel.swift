@@ -13,7 +13,16 @@ final class NewMovieViewModel: ObservableObject {
     @Published var duration: String = ""
 
     public init() {}
-
+    func clearAll(){
+        name = ""
+        country = ""
+        genres = Set()
+        director = ""
+        mark = ""
+        description = ""
+        releaseDate = Date()
+        duration = ""
+    }
     func addNewMovie(
         by uid: String, images: [UIImage], progressObserver: ImagesUploadProgressObserver
     ) async throws {
@@ -34,7 +43,7 @@ final class NewMovieViewModel: ObservableObject {
     func isInputValid() -> Bool {
         return !name.isEmpty && !country.isEmpty && !genres.isEmpty && !director.isEmpty
             && !description.isEmpty && !mark.isEmpty
-            && isMarkValid && !duration.isEmpty
+            && isMarkValid && isDurationValid
     }
     private var isMarkValid: Bool {
         let digitsCharacters = CharacterSet(charactersIn: "0123456789")
@@ -42,6 +51,14 @@ final class NewMovieViewModel: ObservableObject {
         if result {
             guard let markNumber = Int(mark) else { return false }
             result = 0...100 ~= markNumber
+        }
+        return result
+    }
+    
+    private var isDurationValid : Bool {
+        var result = !duration.isEmpty
+        if result {
+            
         }
         return result
     }

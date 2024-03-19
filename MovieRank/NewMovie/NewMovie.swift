@@ -8,10 +8,7 @@ struct NewMovie: View {
     @StateObject var photoSelectorVM = PhotoSelectorViewModel()
     @StateObject var imagesProgress = ImagesUploadProgressObserver()
     let userId: String
-
-    @State var isAlertShown: Bool = false
-    @State var messagePlacing: String = ""
-
+    
     private let addNewMovieLabel: () -> SettingsRowView = {
         SettingsRowView(imageName: "folder.badge.plus", title: "Add new Movie", tintColor: .white)
     }
@@ -22,6 +19,9 @@ struct NewMovie: View {
                 displayMode: .alert, type: .error(.red), title: "\(error.localizedDescription)")
         }
         VStack {
+            HStack{
+                Spacer()
+            }
             NavigationView {
                 Form {
                     InputView(text: $newMovieVM.name, title: "Movie", placeholder: "Movie name")
@@ -31,7 +31,7 @@ struct NewMovie: View {
                     ).listRowSeparator(.hidden)
                     InputView(
                         text: $newMovieVM.duration, title: "Duration",
-                        placeholder: "2:19:00"
+                        placeholder: "2:19"
                     ).listRowSeparator(.hidden)
                     MultiSelector(
                         label: Text("Genres").font(.footnote), options: Genres.allCases,
@@ -61,26 +61,43 @@ struct NewMovie: View {
                     }
                 }
             }
-            AsyncButtonWithResultNotificationAndErrorHandling(
-                closure: {
-                    try await newMovieVM.addNewMovie(
-                        by: userId, images: photoSelectorVM.images, progressObserver: imagesProgress
-                    )
-                }, errorHandler: errorHandler, buttonLabel: addNewMovieLabel,
-                newAlert: {
-                    AlertToast(
-                        type: .regular, title: "New movie \"\(newMovieVM.name)\" successfully added"
-                    )
+            HStack{
+                Button{
+                    newMovieVM.clearAll()
+                    if imagesProgress.uploadTasks.isEmpty{
+                        imagesProgress.uploadProgess = []
+                        photoSelectorVM.images = []
+                    }
+                } label: {
+                    Image(systemName: "arrow.counterclockwise")
+                        .frame(width: 70, height: 40).foregroundColor(.black)
                 }
-            )
-            .frame(width: UIScreen.main.bounds.width - 32, height: 42)
-            .disabled(!isFormValid)
-            .opacity((isFormValid ? 1.0 : 0.5))
-            .background(Color(.systemCyan))
-            .fontWeight(.semibold)
+                .background(Color(.systemCyan))
+                .fontWeight(.semibold)
+                .cornerRadius(10)
+               Spacer()
+                AsyncButtonWithResultNotificationAndErrorHandling(
+                    closure: {
+                        try await newMovieVM.addNewMovie(
+                            by: userId, images: photoSelectorVM.images, progressObserver: imagesProgress
+                        )
+                        
+                    }, errorHandler: errorHandler, buttonLabel: addNewMovieLabel,
+                    newAlert: {
+                        AlertToast(
+                            type: .regular, title: "New movie \"\(newMovieVM.name)\" successfully added"
+                        )
+                    }
+                )
+                .frame(width: UIScreen.main.bounds.width - 120, height: 42)
+                .disabled(!isFormValid)
+                .opacity((isFormValid ? 1.0 : 0.5))
+                .background(Color(.systemCyan))
+                .fontWeight(.semibold)
+                .cornerRadius(10)
+            }.padding(.horizontal)
+            .padding(.top)
             .foregroundColor(.white)
-            .cornerRadius(10)
-            .padding(.top).listRowSeparator(.hidden)
         }
     }
 }

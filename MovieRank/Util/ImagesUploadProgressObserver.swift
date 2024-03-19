@@ -19,6 +19,6 @@ final class ImagesUploadProgressObserver: ObservableObject {
         print("progress \(progress) for index \(index)")
         let clampedProgress = min(max(progress, 0.0), 1.0)
         uploadProgess[index] = clampedProgress
-
     }
+    
 }
