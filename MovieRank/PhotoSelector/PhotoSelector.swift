@@ -37,6 +37,6 @@ struct PhotoSelector: View {
 
 struct PhotoSelector_Previews: PreviewProvider {
     static var previews: some View {
-        PhotoSelector()
+        PhotoSelector().environmentObject(PhotoSelectorViewModel())
     }
 }

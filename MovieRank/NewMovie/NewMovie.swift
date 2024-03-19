@@ -29,12 +29,16 @@ struct NewMovie: View {
                     InputView(
                         text: $newMovieVM.country, title: "Country", placeholder: "USA, New Zeland"
                     ).listRowSeparator(.hidden)
+                    InputView(
+                        text: $newMovieVM.duration, title: "Duration",
+                        placeholder: "2:19:00"
+                    ).listRowSeparator(.hidden)
                     MultiSelector(
-                        label: Text("Genres"), options: Genres.allCases,
+                        label: Text("Genres").font(.footnote), options: Genres.allCases,
                         optionToString: { $0.rawValue }, selected: $newMovieVM.genres
                     ).foregroundColor(.black)
                     DatePicker(
-                        "Select a Release Date", selection: $newMovieVM.releaseDate,
+                        "Release Date", selection: $newMovieVM.releaseDate,
                         displayedComponents: .date)
                     InputView(
                         text: $newMovieVM.director, title: "Director",
@@ -89,6 +93,6 @@ extension NewMovie: InputFormProtocol {
 
 struct NewMovieView_Preview: PreviewProvider {
     static var previews: some View {
-        NewMovie(userId: "")
+        NewMovie(userId: "").environmentObject(AlertViewModel())
     }
 }

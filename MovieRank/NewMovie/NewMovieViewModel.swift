@@ -10,6 +10,7 @@ final class NewMovieViewModel: ObservableObject {
     @Published var description = ""
     @Published var mark = ""
     @Published var releaseDate: Date = Date()
+    @Published var duration: String = ""
 
     public init() {}
 
@@ -20,7 +21,8 @@ final class NewMovieViewModel: ObservableObject {
             id: NSUUID().uuidString, name: name, releaseDate: releaseDate,
             marksAmount: (mark.isEmpty ? 0 : 1), marksWholeScore: UInt64(mark) ?? 0,
             country: country.components(separatedBy: ", "), genre: genres.map { $0.rawValue },
-            director: director.components(separatedBy: ", "), description: description)
+            director: director.components(separatedBy: ", "), description: description,
+            duration: duration.toTimeInterval())
         try await MovieConnector.addNewMovie(newMovie: movie, currentUserId: uid)
         try await UserConnector.changeUserScore(userId: uid, on: 1)
         if !images.isEmpty {
@@ -32,7 +34,7 @@ final class NewMovieViewModel: ObservableObject {
     func isInputValid() -> Bool {
         return !name.isEmpty && !country.isEmpty && !genres.isEmpty && !director.isEmpty
             && !description.isEmpty && !mark.isEmpty
-            && isMarkValid
+            && isMarkValid && !duration.isEmpty
     }
     private var isMarkValid: Bool {
         let digitsCharacters = CharacterSet(charactersIn: "0123456789")

@@ -25,11 +25,11 @@ struct Favourites: View {
                                         favouritesModel.localUpdate(newMovie: newMovie)
                                     })
                             },
-                            onFavouritesStateChanging: { favourite in
+                            onFavouritesStateChanging: { favourite, prop in
                                 try await moviesModel.onFavouritesChange(
                                     for: movie.id,
                                     from: userId,
-                                    isFavourite: favourite)
+                                    isFavourite: favourite, properties: prop)
                             },
                             fetchAllDetailData: { completion, image in
                                 moviesModel.fetchDetailData(

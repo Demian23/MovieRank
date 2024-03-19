@@ -61,13 +61,16 @@ public class MovieListViewModel: ObservableObject {
         movies[index] = newMovie
     }
 
-    func onFavouritesChange(for movieId: String, from uid: String, isFavourite: Bool) async throws
+    func onFavouritesChange(
+        for movieId: String, from uid: String, isFavourite: Bool, properties: FavouritesProperties
+    ) async throws
         -> Bool
     {
         if isFavourite {
             try await FavouritesConnector.deleteMovieForUser(movieId: movieId, for: uid)
         } else {
-            try await FavouritesConnector.addMovieForUser(movieId: movieId, for: uid)
+            try await FavouritesConnector.addMovieForUser(
+                movieId: movieId, for: uid, movieProperties: properties)
         }
         return !isFavourite
     }
