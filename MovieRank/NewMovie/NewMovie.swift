@@ -19,9 +19,6 @@ struct NewMovie: View {
                 displayMode: .alert, type: .error(.red), title: "\(error.localizedDescription)")
         }
         VStack {
-            HStack{
-                Spacer()
-            }
             NavigationView {
                 Form {
                     InputView(text: $newMovieVM.name, title: "Movie", placeholder: "Movie name")
@@ -52,20 +49,23 @@ struct NewMovie: View {
                     PhotoSelector(size: 80).frame(
                         width: UIScreen.main.bounds.width - 32, height: 100
                     ).environmentObject(photoSelectorVM)
-                    ForEach(imagesProgress.uploadProgess.indices, id: \.self) {
-                        index in
-
-                        let progress = imagesProgress.uploadProgess[index]
-                        ProgressView(value: progress) { Text("\(Int(progress * 100))%") }.padding()
+                    VStack{
+                        ForEach(imagesProgress.uploadProgess.sorted(by: >), id: \.key) {
+                            key, value in
+                            ProgressView(value: value) { Text("\(Int(value * 100))%")
+                            }
+                            .padding()
                             .listRowSeparator(.hidden)
+                        }
                     }
                 }
             }
+            
             HStack{
                 Button{
                     newMovieVM.clearAll()
                     if imagesProgress.uploadTasks.isEmpty{
-                        imagesProgress.uploadProgess = []
+                        imagesProgress.uploadProgess = [:]
                         photoSelectorVM.images = []
                     }
                 } label: {

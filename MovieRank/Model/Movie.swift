@@ -16,6 +16,7 @@ enum Genres: String, CaseIterable, Identifiable, Hashable {
     case Fantasy
     case History
     case Horror
+    case Mistery
     case Musical
     case Noir
     case Romance

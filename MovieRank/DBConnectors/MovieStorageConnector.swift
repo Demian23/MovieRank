@@ -42,7 +42,11 @@ final class MovieStorageConnector {
         let movieRef = st.reference().child(root + "/" + movieId)
         let metadata = StorageMetadata()
         metadata.contentType = "image/jpg"
-        progressObserver.uploadProgess = Array(repeating: 0.0, count: images.count)
+        progressObserver.uploadProgess.removeAll()
+        progressObserver.uploadTasks.removeAll()
+        for i in 0..<images.count {
+            progressObserver.uploadProgess[i] = 0.0
+        }
         for i in 0..<images.count {
             let compressed = images[i].jpegData(compressionQuality: 0.2)
             guard let data = compressed else { return }
@@ -54,9 +58,9 @@ final class MovieStorageConnector {
                     return
                 }
                 print("Uploaded with: \(metadata!)")
-                progressObserver.detachUploadTask(at: i)
+                progressObserver.removeUploadTask(at: i)
             }
-            progressObserver.uploadTasks.append(uploadTask)
+            progressObserver.uploadTasks[i] = uploadTask
             uploadTask.observe(.progress) { snapshot in
                 guard let progress = snapshot.progress else { return }
                 let progressComplete =

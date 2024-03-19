@@ -103,7 +103,7 @@ class MovieConnector {
 
     static func getAllMovies() async throws -> [Movie] {
         var result: [Movie] = []
-        let querySnapshot = try await db.collection(movies).order(by: userScoreKey)
+        let querySnapshot = try await db.collection(movies).order(by: userScoreKey, descending: true)
             .getDocuments()
         for document in querySnapshot.documents {
             result.append(try document.data(as: Movie.self))

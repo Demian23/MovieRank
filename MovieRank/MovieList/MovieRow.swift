@@ -32,9 +32,9 @@ struct MovieRow: View {
             let avgMark = MovieRow.formatAverageMark(
                 whole: movie.marksWholeScore, amount: movie.marksAmount)
             let color = MovieRow.markToColor(mark: avgMark)
-            Text(MovieRow.genreToShort(movie.genre.first!)).fontDesign(.rounded).font(.headline)
-                .fontWeight(.thin).padding(.trailing)
-            Text(movie.name).font(.title2).fontWeight(.medium).fontDesign(.monospaced)
+            let font = movie.name.count > 17 ? Font.title3 : Font.title2
+            Text(MovieRow.genreToShort(movie.genre.first!)).fontDesign(.rounded).font(.headline).fontWeight(.thin)
+            Text(movie.name).font(font).fontWeight(.medium).fontDesign(.monospaced).frame(maxWidth: 150)
             Text(MovieRow.formatDate(date: movie.releaseDate)).fontDesign(.monospaced).padding(
                 .horizontal)
             Spacer()
@@ -71,6 +71,8 @@ struct MovieRow: View {
             return "H"
         case Genres.Horror.rawValue:
             return "Hor"
+        case Genres.Mistery.rawValue:
+            return "Mis"
         case Genres.Musical.rawValue:
             return "Mus"
         case Genres.Noir.rawValue:
@@ -97,12 +99,14 @@ struct MovieRow: View {
 
 struct MyPreviewProvider_Previews: PreviewProvider {
     static var previews: some View {
-        MovieRow(
-            movie: Movie(
-                id: NSUUID().uuidString, name: "Matrix", releaseDate: Date(), marksAmount: 1,
-                marksWholeScore: 81, country: ["USA", "New Zeland"],
-                genre: [Genres.Action.rawValue, Genres.SciFi.rawValue],
-                director: ["Lilly Wachovsky", "Lola Wachovsky"], description: "Bad future",
-                duration: 3600))
+        List{
+            MovieRow(
+                movie: Movie(
+                    id: NSUUID().uuidString, name: "Barfuss", releaseDate: Date(), marksAmount: 1,
+                    marksWholeScore: 81, country: ["USA", "New Zeland"],
+                    genre: [Genres.Action.rawValue, Genres.SciFi.rawValue],
+                    director: ["Lilly Wachovsky", "Lola Wachovsky"], description: "Bad future",
+                    duration: 3600))
+        }
     }
 }
